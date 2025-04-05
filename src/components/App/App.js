@@ -1,8 +1,9 @@
-import './App.css';
+
 import React from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import NotFound from '../NotFound/NotFound';
+import Header from '../Header/Header';
 
 
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+        <Header />
         <Routes>
           <Route path="*" element={<NotFound />} />
         </Routes>
