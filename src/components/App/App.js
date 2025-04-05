@@ -1,24 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+import NotFound from '../NotFound/NotFound';
+
+
 
 function App() {
+  const [currentUser, setCurrentUser] = React.useState({ name: "Пользователь", email: 'example@gmail.com', _id: '14143423' });
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
