@@ -25,7 +25,7 @@ function Header(props) {
                     <input className='header__search-input' placeholder="Название фильма" onChange={handleNameChange} value={nameValue || ""} />
                     {nameValue ? <button className='header__delete-button' onClick={handleNameDelete} /> : ''}
                 </form>
-                <Link className="header__container" to={props.isLoggedIn ? "/profile" : '/log-in'}>
+                <Link className="header__container" to={props.isLoggedIn ? "/profile" : '/auth'}>
                     <img className="header__container-icon" src={profile_icon} alt="Иконка профиля" />
                     <p className="header__container-title">{props.isLoggedIn ? "Профиль" : 'Войти'}</p>
                 </Link>

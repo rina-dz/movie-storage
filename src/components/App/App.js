@@ -1,9 +1,9 @@
-
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import NotFound from '../NotFound/NotFound';
 import Header from '../Header/Header';
+import Auth from '../Auth/Auth.js';
 
 
 
@@ -17,6 +17,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="*" element={<NotFound />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </div>
     </CurrentUserContext.Provider>
