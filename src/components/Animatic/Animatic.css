@@ -3,15 +3,13 @@
 .animatic {
     top: 0;
     left: 0;
-    position: absolute;
+    position: fixed;
     z-index: -1;
     overflow: hidden;
     width: 100%;
-    height: 100vh;
+    min-height: 100%;
     opacity: 0.7;
     background: linear-gradient(70deg, rgb(220, 140, 252), rgb(129, 215, 255));
-    width: 100%;
-    height: 100vh;
 }
 
 .animatic__element {

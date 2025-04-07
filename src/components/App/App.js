@@ -13,7 +13,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth />} />

@@ -4,18 +4,48 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 75px 0 0;
+    padding: 0;
+    margin: 0;
 }
-
 
 .auth__form-container {
     width: 600px;
-    min-height: 400px;
+    height: min-content;
     background-color: rgb(30, 30, 30);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    margin: 75px 0 70px;
+}
+
+.auth__icon-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 20px;
+    top: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    background: linear-gradient(70deg, rgb(220, 140, 252), rgb(129, 215, 255));
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.auth__icon-container:hover {
+    opacity: 0.5;
+}
+
+.auth__back-icon {
+    height: 22px;
+    width: 22px;
+    
+    background-size: cover;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .auth__title {
@@ -28,7 +58,7 @@
 }
 
 .auth__form {
-    min-height: 300px;
+    height: min-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,7 +96,6 @@
     position: absolute;
     top: 7px;
     right: 10px;
-
     width: 30px;
     height: 30px;
     background-size: cover;
@@ -121,7 +150,7 @@
 }
 
 .auth__link-container {
-    margin: 8px 0 80px;
+    margin: 8px 0 50px;
 }
 
 .auth__link-text {
@@ -150,11 +179,9 @@
 
 
 @media screen and (max-width: 700px) {
-    .auth {
-        padding-top: 120px;
-    }
 
     .auth__form-container {
+        margin: 170px 0 160px;
         width: 420px;
     }
 

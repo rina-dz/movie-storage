@@ -2,6 +2,8 @@ import React from 'react';
 import "./Auth.css";
 import closedEye from '../../images/eye-closed_icon.svg';
 import openEye from '../../images/eye-open_icon.svg';
+import backIcon from '../../images/arrow-left.svg';
+import { Link } from 'react-router-dom';
 
 function Auth(props) {
     const [isLogging, setLogging] = React.useState(true);
@@ -20,6 +22,9 @@ function Auth(props) {
     return (
         <section className="auth">
             <div className='auth__form-container'>
+                <Link className='auth__icon-container' to='/'>
+                    <img src={backIcon} className='auth__back-icon' alt='Назад' />
+                </Link>
                 <h2 className='auth__title'>{isLogging ? 'Рады видеть!' : 'Добро пожаловать!'}</h2>
                 <form className='auth__form'>
                     {isLogging ? '' : <input className='auth__input' name='name' placeholder='Имя' required />}
