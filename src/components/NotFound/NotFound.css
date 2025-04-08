@@ -38,7 +38,6 @@
     line-height: normal;
     padding: 0;
     margin: 0 0 5px;
-
 }
 
 .not-found__text {
@@ -52,8 +51,6 @@
     margin: 0;
     padding: 0;
 }
-
-
 
 .not-found__link {
     text-decoration: none;
@@ -109,7 +106,7 @@
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 700px) and (min-width: 481px) {
     .not-found__main-container {
         width: 420px;
         margin: 170px auto 130px;
@@ -127,6 +124,35 @@
     }
 
     .not-found__link {
+        font-size: 12px;
+        margin: 0 auto 30px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .not-found__main-container {
+        width: 310px;
+        margin: 170px auto 130px;
+    }
+
+    .not-found__text-container {
+        margin-bottom: 65px;
+    }
+
+    .not-found__title {
+        font-size: 140px;
+        line-height: normal;
+        margin: 0 0 10px;
+    }
+
+    .not-found__text {
+        font-size: 22px;
+        line-height: normal;
+    }
+
+    .not-found__link {
+        width: 160px;
         font-size: 12px;
         margin: 0 auto 30px;
     }

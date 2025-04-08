@@ -89,6 +89,15 @@
     }
 
     .main__slide-container::before, .main__slide-container::after {
-        box-shadow: 0 0 100px 65px rgba(7, 7, 7, 0.9);
+        box-shadow: 0 0 90px 55px rgba(7, 7, 7, 0.75);
+    }
+
+    .main__button-container {
+        left: 12px
+    }
+
+    .main__right-button {
+    left: auto;
+        right: 12px;
     }
 }

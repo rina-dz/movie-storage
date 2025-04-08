@@ -179,7 +179,6 @@
 
 
 @media screen and (max-width: 700px) {
-
     .auth__form-container {
         margin: 170px 0 160px;
         width: 420px;
@@ -190,4 +189,21 @@
         height: 35px;
     }
 
+    .auth__visibility-icon {
+        top: 3.5px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .auth__form {
+        margin: 0 25px;
+    }
+
+    .auth__title {
+        font-size: 29px;
+    }
+
+    .auth__form-container {
+        width: min-content;
+    }
 }
