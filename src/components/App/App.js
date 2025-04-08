@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import NotFound from '../NotFound/NotFound';
-import Header from '../Header/Header';
+import Main from '../Main/Main';
 import Auth from '../Auth/Auth.js';
 import Animatic from '../Animatic/Animatic.js'
 
@@ -14,6 +14,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
+          <Route path="/" element={<Main />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth />} />
         </Routes>
