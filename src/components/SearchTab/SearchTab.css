@@ -1,0 +1,201 @@
+.search {
+    max-width: 1140px;
+    width: 89%;
+    height: min-content;
+    background-color: rgb(20, 20, 20, 0.65);
+    display: flex;
+    justify-content: center;
+    margin: 50px auto 0;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.search__form {
+    width: 100%;
+}
+
+.search__line {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 15px;
+}
+
+.search__line-icon {
+    width: 34px;
+    height: 34px;
+}
+
+.search__line-input {
+    width: 78%;
+    border: none;
+    color: #a0a0a0;
+    text-align: center;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    background-color: rgba(179, 179, 179, 0.2);
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+.search__line-input::placeholder {
+    color: #A0A0A0;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.search__line-input:focus {
+    font-size: 20px;
+    color: #E8E8E8;
+    outline: none;
+    border: 1.5px solid rgb(144, 144, 144);
+}
+
+.search__delete-button {
+    position: absolute;
+    top: 5px;
+    right: 17.5%;
+    background-image: url('../../images/delete-icon.png');
+    width: 23px;
+    height: 23px;
+    background-size: cover;
+    background-color: transparent;
+    cursor: pointer;
+    margin-right: 8px;
+    border: none;
+    box-shadow: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.search__delete-button:hover {
+    opacity: 0.7;
+}
+
+.search__line-button {
+    cursor: pointer;
+    background-color: #000000;
+    border: none;
+    padding: 8px 10.35px;
+    border-radius: 48px;
+    color: #FFF;
+    text-align: center;
+    font-size: 11px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 18px;
+}
+
+.search__disable-button {
+    opacity: 0.25;
+    background-color: rgb(0, 0, 0);
+    cursor: default;
+}
+
+.search__disable-button:hover {
+    opacity: 0.25;
+}
+
+.search__year-input {
+    width: 9%;
+    border: none;
+    padding: 0;
+    color: #a0a0a0;
+    text-align: center;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    background-color: rgba(179, 179, 179, 0.2);
+    border-radius: 15px;
+    font-size: 18px;
+}
+
+.search__year-input::placeholder {
+    color: #A0A0A0;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.search__year-input:focus {
+    font-size: 20px;
+    color: #E8E8E8;
+    outline: 1.5px solid rgb(144, 144, 144);
+}
+
+@media screen and (max-width: 550px) {
+    .search {
+        padding: 10px;
+        margin-top: 25px;
+        border-radius: 20px;
+    }
+
+    .search__line-icon {
+        display: none;
+    }
+
+    .search__line-input {
+        width: 75%;
+        text-align: center;
+        font-size: 18px;
+        line-height: normal;
+    }
+
+    .search__year-input {
+        width: 18%;
+        font-size: 18px;
+        border-radius: 13px;
+    }
+
+    .search__year-input:focus,
+    .search__year-input::placeholder {
+        font-size: 18px;
+    }
+
+    .search__delete-button {
+        display: none;
+    }
+
+    .search__line-input:focus {
+        font-size: 18px;
+    }
+
+    .search__line-button {
+        position: absolute;
+        top: 53px;
+        left: 42%;
+    }
+}
+
+@media screen and (min-width: 551px) and (max-width: 900px) {
+    .search {
+        max-width: 708px;
+        padding: 15px;
+    }
+
+    .search__line-input {
+        width: 63%;
+    }
+
+    .search__year-input {
+        width: 10%;
+        font-size: 15px;
+        border-radius: 13px;
+    }
+
+    .search__year-input:focus,
+    .search__year-input::placeholder {
+        font-size: 15px;
+    }
+
+    .search__delete-button {
+        display: none;
+    }
+}

@@ -3,6 +3,7 @@ import './Main.css';
 //import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Slide from '../Slide/Slide';
+import SearchTab from '../SearchTab/SearchTab';
 import arrowIcon from '../../images/arrow-left.svg';
 import poster4 from '../../images/temporarily/poster4.webp';
 import poster5 from '../../images/temporarily/poster5.webp';
@@ -35,10 +36,15 @@ function Main() {
         poster: poster5,
     };
 
-    //для прокрутки карусельки можно сделать отрисовку первых трёх элементов массива, где будут объекты 
+    const topIds = ['tt6208148', 'tt13406094', 'tt3566834', 'tt31806037',
+    'tt31510819', 'tt11280740', 'tt18923754', 'tt8740614', 'tt18335752', 'tt31938062']
+
+    //для прокрутки карусельки можно сделать отрисовку первых пяти элементов массива, где будут объекты 
     // с информацией о слайдах и при нажатии на левую стрелку будет удаляться объект с конца и он же
     //добавляться в начало и то же самое с правой стрелкой - так получится бесконечная коруселька
     // таким же образом с помощью таймера можно будет сделать автоматическую прокрутку каждые 10 сек
+
+    // Приходит по 10 фильмов, далее нужно отправлять такой же запрос с другой страницей
 
     return (
         <>
@@ -62,6 +68,7 @@ function Main() {
                         </button>
                     </div>
                 </div>
+                <SearchTab />
             </section>
         </>
     )
