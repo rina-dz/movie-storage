@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Slide from '../Slide/Slide';
 import SearchTab from '../SearchTab/SearchTab';
 import SlidesList from '../SlidesList/SlidesList';
+import Footer from '../Footer/Footer';
 import arrowIcon from '../../images/arrow-left.svg';
 import { movie1, movie2, movie3, movie4, movie5, topMovies } from '../../utils/movies';
 
@@ -48,6 +49,7 @@ function Main(props) {
                     <p className='main__result-text'>Ничего не найдено</p>
                 )}
             </section>
+            <Footer />
         </>
     )
 }
