@@ -1,32 +1,64 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import './Slide.css';
 import rateStar from '../../images/star-icon.svg';
+import heart_clicked from '../../images/heart-icon__clicked.png';
+import heart_default from '../../images/heart-icon__default.png';
 //import { Link } from 'react-router-dom';
 
 function Slide(props) {
 
-    const { poster, title, rate } = props.movie;
+    const { poster, title, rate, year, imdbID } = props.movie;
+    const [isLiked, setMovieLike] = React.useState(false);
+    const currentUser = useContext(CurrentUserContext);
 
-    // мб убрать рейтинг и заменить его на год??
-    // либо сделать два варианта слайда для топ-10 и для списка найденных фильмов
-    // тк при search приходит массив с объектами, где нет параметра рейтинга
-    // а при поиске по id он есть...
+    React.useEffect(() => {
+        currentUser.favMovies.includes(imdbID) ? setMovieLike(true) : setMovieLike(false)
+        // props.favMovies.includes(imdbID) ? setMovieLike(true) : setMovieLike(false)
+    }, []);
 
-    // возможно перенести рейтинг выше названия, а также добавить кнопку 'добавить в избранное'
-    // внизу slide (кнопка как в топе у ibdb)
-
-    //добавить тени внутрь при наведении на каждый отдельный слайд
-    
+    function likeMovie() {
+        let index = currentUser.favMovies.indexOf(imdbID);
+        if (index > -1) {
+            currentUser.favMovies.splice(index, 1);
+            setMovieLike(false);
+            console.log(`Удалён`);
+        } else {
+            currentUser.favMovies.push(imdbID);
+            setMovieLike(true);
+            console.log(`Добавлен`);
+        }
+        console.log(`Избранные фильмы: ${currentUser.favMovies}`);
+        // let index = props.favMovies.indexOf(imdbID);
+        // if (index > -1) {
+        //     props.favMovies.splice(index, 1);
+        //     setMovieLike(false);
+        //     console.log(`Удалён`);
+        // } else {
+        //     props.favMovies.push(imdbID);
+        //     setMovieLike(true);
+        //     console.log(`Добавлен`);
+        // }
+        // console.log(`Избранные фильмы: ${props.favMovies}`);
+    }
 
     return (
         <aside className='slide'>
             <img className='slide__poster' alt='Постер фильма' src={poster} />
             <div className='slide__text-container'>
+                {props.isTopSlide ?
+                    <p className='slide__info'>IMD рейтинг: <span className='slide__rate-span'>
+                        <img src={rateStar} className='slide__star-icon' alt='Звёздочка' />
+                        {rate}</span></p>
+                    :
+                    <p className='slide__info'>Год выхода: <span className='slide__year-span'>{year}</span></p>
+                }
                 <h3 className='slide__title'>{title}</h3>
-                <p className='slide__rate'>IMD рейтинг: <span className='slide__rate-span'>
-                    <img src={rateStar} className='slide__star-icon' alt='Звёздочка' />
-                    {rate}</span></p>
             </div>
+            <button className={isLiked ? 'slide__button liked-button' : 'slide__button'} onClick={likeMovie}>
+                <img className='slide__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />
+            </button>
+
         </aside>
     )
 }

@@ -8,7 +8,7 @@ import Animatic from '../Animatic/Animatic.js'
 
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState({ name: "Пользователь", email: 'example@gmail.com', _id: '14143423' });
+  const [currentUser, setCurrentUser] = React.useState({ name: "Пользователь", email: 'example@gmail.com', favMovies: ["tt18689424", "tt18689425"] });
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
