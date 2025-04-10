@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 function Profile(props) {
     const currentUser = useContext(CurrentUserContext);
 
+    //<Link className="profile__change-link" to="/profile-change">Редактировать</Link>
+
     return (
         <>
             <Header />
@@ -25,7 +27,6 @@ function Profile(props) {
                         </div>
                     </div>
                     <div className="profile__links">
-                        <Link className="profile__change-link" to="/profile-change">Редактировать</Link>
                         <Link className="profile__exit-link" to="/auth">Выйти из аккаунта</Link>
                     </div>
                 </div>
