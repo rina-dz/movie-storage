@@ -1,0 +1,150 @@
+.profile {
+    padding: 85px 0;
+}
+
+.profile__main-container {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0;
+    padding: 0 25px;
+    border-radius: 15px;
+    background-color: rgb(20, 20, 20, 0.65);
+}
+
+.profile__title {
+    color: #bdbdbd;
+    text-align: center;
+    font-size: 24px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: 45px;
+}
+
+.profile__custom-title {
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    background-image: linear-gradient(70deg, rgb(220, 140, 252), rgb(129, 215, 255));
+}
+
+.profile__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px auto 80px;
+}
+
+.profile__text-container {
+    width: 340px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 0 16px;
+    margin: 0 0 17px;
+}
+
+.profile__text-container:first-child {
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.profile__label {
+    color: #8e8e8e;
+    font-size: 15px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0;
+}
+
+.profile__value {
+    border: none;
+    color: #bdbdbd;
+    text-align: right;
+    font-size: 15px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 85%;
+    margin: 0;
+}
+
+.profile__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0 auto 30px;
+}
+
+.profile__change-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: #bdbdbd;
+    text-align: center;
+    font-size: 15px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    padding: 0;
+    margin: 0 0 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.profile__change-link:hover {
+    opacity: 0.8;
+}
+
+.profile__exit-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: #FF4062;
+    text-align: center;
+    font-size: 16px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.profile__exit-link:hover {
+    opacity: 0.8;
+}
+
+
+@media screen and (max-width: 550px) {
+    .profile__main-container {
+        width: 310px;
+        padding: 0;
+    }
+
+    .profile__title {
+        font-size: 30px;
+    }
+
+    .profile__text-container {
+        width: 260px;
+    }
+
+    .profile__label,
+    .profile__value {
+        font-size: 12px;
+    }
+}

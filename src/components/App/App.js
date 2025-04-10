@@ -4,7 +4,8 @@ import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 import NotFound from '../NotFound/NotFound';
 import Main from '../Main/Main';
 import Auth from '../Auth/Auth.js';
-import Animatic from '../Animatic/Animatic.js'
+import Profile from '../Profile/Profile.js';
+import Animatic from '../Animatic/Animatic.js';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
         <Animatic />
       </div>
