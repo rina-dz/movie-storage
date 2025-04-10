@@ -19,22 +19,25 @@
 
 .main__slide-container {
     display: flex;
-    height:  min-content;
+    height: min-content;
     flex-direction: row;
     column-gap: 15px;
     position: relative;
     padding: 0;
-    margin:  10px 0 15px 0;
+    margin: 10px 0 15px 0;
     overflow-x: hidden;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }
 
-.main__slide-container::before, .main__slide-container::after {
+.main__slide-container::before,
+.main__slide-container::after {
     content: '';
     position: absolute;
+    z-index: 5;
     height: 100%;
     width: 5px;
+    opacity: 0.8;
     box-shadow: 0 0 200px 110px rgba(7, 7, 7, 0.9);
 }
 
@@ -60,13 +63,13 @@
     background: linear-gradient(70deg, rgb(220, 140, 252), rgb(129, 215, 255));
     cursor: pointer;
     padding: 0;
-    z-index: 4;
-    opacity: 0.8;
+    z-index: 6;
+    opacity: 0.4;
     transition: opacity 0.3s ease;
 }
 
 .main__button-container:hover {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .main__slides-button {
@@ -82,14 +85,26 @@
     transform: rotate(180deg);
 }
 
+.main__result-text {
+    width: min-content;
+    white-space: nowrap;
+    margin: 30px auto;
+    color: rgb(59, 59, 59);
+    font-size: 35px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
 
-@media screen and (max-width: 600px) { 
+
+@media screen and (max-width: 600px) {
 
     .main__slide-title {
         font-size: 22px;
     }
 
-    .main__slide-container::before, .main__slide-container::after {
+    .main__slide-container::before,
+    .main__slide-container::after {
         box-shadow: 0 0 90px 55px rgba(7, 7, 7, 0.75);
     }
 
@@ -98,22 +113,12 @@
     }
 
     .main__right-button {
-    left: auto;
+        left: auto;
         right: 12px;
     }
-}
 
-
-
-
-.movie-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 272px);
-    justify-content: center;
-    grid-auto-rows: min-content;
-    row-gap: 30px;
-    column-gap: 15px;
-    margin: 50px auto;
-    width: 93%;
-    max-width: 1420px;
+    .main__result-text {
+        font-size: 26px;
+        margin-top: 60px;
+    }
 }

@@ -8,7 +8,7 @@
     background-color: rgb(30, 30, 30);
     width: 100%;
     max-width: 1440px;
-    height: 100px;
+    height: 100%;
     margin: 0 auto;
     padding: 0;
     display: flex;
@@ -209,7 +209,29 @@
 
 
 @media screen and (max-width: 580px) {
+    .header {
+        height: 70px;
+    }
+
+    .header__main-logo {
+        width: 40px;
+        height: 40px;
+    }
+
     .header__search-form {
         display: none;
+    }
+
+    .header__container {
+        height: 40px;
+    }
+
+    .header__container::before {
+        height: 40px;
+    }
+
+    .header__container-icon {
+        width: 30px;
+        height: 30px;
     }
 }

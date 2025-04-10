@@ -14,7 +14,6 @@ function Slide(props) {
 
     React.useEffect(() => {
         currentUser.favMovies.includes(imdbID) ? setMovieLike(true) : setMovieLike(false)
-        // props.favMovies.includes(imdbID) ? setMovieLike(true) : setMovieLike(false)
     }, []);
 
     function likeMovie() {
@@ -29,17 +28,6 @@ function Slide(props) {
             console.log(`Добавлен`);
         }
         console.log(`Избранные фильмы: ${currentUser.favMovies}`);
-        // let index = props.favMovies.indexOf(imdbID);
-        // if (index > -1) {
-        //     props.favMovies.splice(index, 1);
-        //     setMovieLike(false);
-        //     console.log(`Удалён`);
-        // } else {
-        //     props.favMovies.push(imdbID);
-        //     setMovieLike(true);
-        //     console.log(`Добавлен`);
-        // }
-        // console.log(`Избранные фильмы: ${props.favMovies}`);
     }
 
     return (

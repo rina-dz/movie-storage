@@ -1,0 +1,77 @@
+.slides-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.slides-list__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 272px);
+    justify-content: center;
+    grid-auto-rows: min-content;
+    row-gap: 30px;
+    column-gap: 15px;
+    margin: 50px auto;
+    width: 93%;
+    max-width: 1420px;
+}
+
+.slides-list__button {
+    position: relative;
+    overflow-x: hidden;
+    min-width: 80px;
+    max-width: 200px;
+    width: 15%;
+    height: 50px;
+    margin: 0 auto 25px;
+    padding: 0;
+    border: 0;
+    border-radius: 15px;
+    background-color: rgb(20, 20, 20, 0.85);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.slides-list__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 50px;
+    width: 45px;
+    transform: skewX(-49deg);
+    left: -100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    animation: flareAnimation 4s infinite linear;
+}
+
+.slides-list__button:hover {
+    opacity: 0.8;
+}
+
+.slides-list__button-text {
+    font-size: 25px;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    background-image: linear-gradient(70deg, rgb(220, 140, 252), rgb(129, 215, 255));
+}
+
+@keyframes flareAnimation {
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .slides-list__button-text {
+        font-size: 20px;
+    }
+}
