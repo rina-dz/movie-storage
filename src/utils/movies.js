@@ -41,7 +41,7 @@ export const movie5 = {
     poster: "https://m.media-amazon.com/images/M/MV5BOTRlNWQwM2ItNjkyZC00MGI3LThkYjktZmE5N2FlMzcyNTIyXkEyXkFqcGdeQXVyMTEyNzgwMDUw._V1_SX300.jpg",
     year: 2016,
     imdbID: "tt18689429",
-}
+};
 
 export const top10 = ['tt6208148', 'tt13406094', 'tt3566834', 'tt31806037', 'tt31510819', 'tt11280740', 'tt18923754', 'tt18335752', 'tt31938062'];
 
@@ -116,4 +116,82 @@ export const topMovies = [
         year: 2025,
         imdbID: "tt30988739",
     },
-]
+];
+
+export const idAnswerrr = {
+    "Title": "Black Bag",
+    "Year": "2025",
+    "Rated": "R",
+    "Released": "14 Mar 2025",
+    "Runtime": "93 min",
+    "Genre": "Drama, Thriller",
+    "Director": "Steven Soderbergh",
+    "Writer": "David Koepp",
+    "Actors": "Tom Burke, Michael Fassbender, Cate Blanchett",
+    "Plot": "When intelligence agent Kathryn Woodhouse is suspected of betraying the nation, her husband - also a legendary agent - faces the ultimate test of whether to be loyal to his marriage, or his country.",
+    "Language": "English",
+    "Country": "United Kingdom",
+    "Awards": "N/A",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BNzA1OWU4NDMtMDUxMC00NWI4LWJhYjUtYWQ0OGQ5MTc2NDRjXkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Rotten Tomatoes",
+            "Value": "96%"
+        },
+        {
+            "Source": "Rottenn Tomatoes",
+            "Value": "96%"
+        },
+        {
+            "Source": "Rottten Tomatoes",
+            "Value": "96%"
+        }
+    ],
+    "Metascore": "N/A",
+    "imdbRating": "N/A",
+    "imdbVotes": "N/A",
+    "imdbID": "tt30988739",
+    "Type": "movie",
+    "DVD": "N/A",
+    "BoxOffice": "N/A",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True"
+};
+
+export const idAnswer = {
+    "Title": "A Minecraft Movie",
+    "Year": "2025",
+    "Rated": "PG",
+    "Released": "04 Apr 2025",
+    "Runtime": "101 min",
+    "Genre": "Action, Adventure, Comedy",
+    "Director": "Jared Hess",
+    "Writer": "Chris Bowman, Hubbel Palmer, Neil Widener",
+    "Actors": "Jason Momoa, Jack Black, Sebastian Hansen",
+    "Plot": "Four misfits are suddenly pulled through a mysterious portal into a bizarre cubic wonderland that thrives on imagination. To get back home they'll have to master this world while embarking on a quest with an unexpected expert craf...",
+    "Language": "English",
+    "Country": "Sweden, United States, New Zealand, Canada",
+    "Awards": "N/A",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BYzFjMzNjOTktNDBlNy00YWZhLWExYTctZDcxNDA4OWVhOTJjXkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Internet Movie Database",
+            "Value": "6.0/10"
+        },
+        {
+            "Source": "Metacritic",
+            "Value": "46/100"
+        }
+    ],
+    "Metascore": "46",
+    "imdbRating": "6.0",
+    "imdbVotes": "46,049",
+    "imdbID": "tt3566834",
+    "Type": "movie",
+    "DVD": "N/A",
+    "BoxOffice": "$200,361,733",
+    "Production": "Warner Bros. Pictures",
+    "Website": "N/A",
+    "Response": "True"
+}
