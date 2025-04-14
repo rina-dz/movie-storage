@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import NotFound from '../NotFound/NotFound';
 import Main from '../Main/Main';
 import Auth from '../Auth/Auth.js';
@@ -17,7 +18,7 @@ function App() {
       favMovies: ["tt18689424", "tt18689425", 'tt31806037', 'tt18923754']
     }
   );
-  const [loggedIn, changeState] = React.useState(true);
+  const [loggedIn, changeState] = React.useState(false);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -26,8 +27,14 @@ function App() {
           <Route path="/" element={<Main isLoggedIn={loggedIn} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/profile" element={<Profile isLoggedIn={loggedIn} />} />
-          <Route path="/fav-movies" element={<FavMovies isLoggedIn={loggedIn} />} />
+          <Route path="/profile" element={<ProtectedRoute
+            isLoggedIn={loggedIn}
+            element={Profile}
+          />} />
+          <Route path="/fav-movies" element={<ProtectedRoute
+            isLoggedIn={loggedIn}
+            element={FavMovies}
+          />} />
         </Routes>
         <Animatic />
       </div>
