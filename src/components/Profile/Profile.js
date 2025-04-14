@@ -12,7 +12,7 @@ function Profile(props) {
 
     return (
         <>
-            <Header />
+            <Header isLoggedIn={props.isLoggedIn} />
             <section className="profile">
                 <div className='profile__main-container'>
                     <p className="profile__title">Привет, <span className='profile__custom-title'>{currentUser.name}</span>!</p>

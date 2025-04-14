@@ -3,10 +3,12 @@ import "./Header.css";
 import { Link } from 'react-router-dom';
 import search__icon from '../../images/search-icon.png';
 import profile_icon from '../../images/profile-icon.svg'
-
+import favorite_icon from '../../images/favorite_icon.svg';
 
 function Header(props) {
     const [nameValue, setNameValue] = React.useState('');
+    let path = window.location.pathname;
+    const containerClassName = props.isLoggedIn ? "header__container" : "header__container unlogged-container";
 
     function handleNameChange(e) {
         setNameValue(e.target.value);
@@ -25,7 +27,13 @@ function Header(props) {
                     <input className='header__search-input' placeholder="Название фильма" onChange={handleNameChange} value={nameValue || ""} />
                     {nameValue ? <button className='header__delete-button' onClick={handleNameDelete} /> : ''}
                 </form>
-                <Link className="header__container" to={props.isLoggedIn ? "/profile" : '/auth'}>
+                {props.isLoggedIn ? (
+                    <Link className={path === '/fav-movies' ? 'header__disable-link header__favorite-link' : 'header__enable-link header__favorite-link'} to='/fav-movies'>
+                        <img className='header__favorite-icon' src={favorite_icon} alt='Избранное' />
+                    </Link>
+                ) : ('')}
+                <Link className={path === '/profile' ? `header__disable-link ${containerClassName}` : `header__enable-link ${containerClassName}`}
+                    to={props.isLoggedIn ? "/profile" : '/auth'}>
                     <img className="header__container-icon" src={profile_icon} alt="Иконка профиля" />
                     <p className="header__container-title">{props.isLoggedIn ? "Профиль" : 'Войти'}</p>
                 </Link>
