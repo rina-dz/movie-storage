@@ -8,22 +8,52 @@
     grid-template-rows: repeat(2, min-content);
 }
 
-.movie__button {
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    z-index: 4;
-    padding: 0;
-    border: 0;
-    margin: auto auto 10px;
-    justify-self: end;
-    width: min-content;
+.movie__poster {
+    grid-row: 1 / -1;
+    width: 300px;
+    margin: 0 35px 20px 0;
+    background-position: center;
+    background-color: transparent;
+}
+
+.movie__info-container {
+    display: grid;
     height: min-content;
-    border-radius: 13px;
+    grid-template-columns: repeat(2, min-content);
+    grid-auto-rows: min-content;
+    row-gap: 10px;
+    justify-content: center;
+    margin: 0 auto 0 0;
+}
+
+.movie__title-container {
+    position: relative;
+    grid-column: 1 / -1;
+    width: max-content;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.movie__title {
+    margin: 0 10px 0 0;
+    color: rgb(18, 18, 18);
+    font-size: 31px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.movie__button {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    border-radius: 13px;
     background-color: rgb(45, 45, 45);
     opacity: 0.75;
     transition: opacity 0.3s ease;
@@ -44,34 +74,6 @@
     margin: 2.5px 5px;
 }
 
-.movie__poster {
-    grid-row: 1 / -1;
-    width: 300px;
-    margin: 0 35px 20px 0;
-    background-position: center;
-    background-color: transparent;
-}
-
-.movie__info-container {
-    display: grid;
-    height: min-content;
-    grid-template-columns: repeat(2, min-content);
-    grid-auto-rows: min-content;
-    row-gap: 10px;
-    justify-content: center;
-    margin: 0 auto 0 0;
-}
-
-.movie__title {
-    grid-column: 1 / -1;
-    margin: 0 0 10px;
-    color: rgb(18, 18, 18);
-    font-size: 31px;
-    font-family: Geoform, sans-serif;
-    font-style: normal;
-    font-weight: 300;
-}
-
 .movie__dt {
     width: min-content;
     white-space: nowrap;
@@ -79,11 +81,13 @@
     font-style: normal;
     font-weight: 300;
     font-size: 16px;
+    margin: auto 0;
     color: rgb(45, 45, 45);
 }
 
 .movie__dd {
-    white-space: nowrap;
+    min-width: 220px;
+    width: min-content;
     margin: 0 0 0 35px;
     font-style: normal;
     font-weight: 300;
@@ -93,12 +97,15 @@
 
 .movie__ratings {
     margin-top: 45px;
+    width: min-content;
 }
 
 .movie__rating-container {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: min-content;
+    margin-bottom: 10px;
 }
 
 .movie__rating-icon {
@@ -110,7 +117,7 @@
 }
 
 .movie__rating {
-    margin: 0 0 10px 10px;
+    margin: 0 0 0 10px;
     white-space: nowrap;
     font-style: normal;
     font-size: 16px;
@@ -130,4 +137,88 @@
     max-width: 635px;
     grid-column: 2 / -1;
     margin: 0;
+}
+
+@media screen and (max-width: 1300px) and (min-width: 800px) {
+    .movie {
+        min-width: 700px;
+        grid-template-columns: 335px auto;
+        grid-template-rows: repeat(3, min-content);
+    }
+
+    .movie__ratings {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .movie {
+        min-width: 360px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movie__poster {
+        margin: 0 0 10px 0;
+    }
+
+    .movie__info-container {
+        margin: 0;
+    }
+
+    .movie__title-container {
+        margin: 0 auto;
+    }
+
+    .movie__dd {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .movie__ratings {
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+
+    .movie__plot {
+        font-size: 19px;
+        width: 80%;
+        min-width: 360px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .movie {
+        min-width: min-content;
+    }
+
+    .movie__title {
+        font-size: 25px;
+    }
+
+    .movie__dt {
+        font-size: 14px;
+    }
+
+    .movie__dd {
+        width: min-content;
+        min-width: 150px;
+        font-size: 14px;
+        margin-left: 15px;
+    }
+
+    .movie__rating {
+        white-space: wrap;
+        max-width: 200px;
+    }
+
+    .movie__rating-span {
+        font-size: 16px;
+    }
+
+    .movie__plot {
+        font-size: 16px;
+        min-width: 200px;
+    }
 }

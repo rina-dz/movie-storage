@@ -36,12 +36,14 @@ function Movie(props) {
         <>
             <Header isLoggedIn={props.isLoggedIn} />
             <section className='movie'>
-                <button className={isLiked ? 'movie__button liked-button' : 'movie__button'} onClick={likeMovie}>
-                    <img className='movie__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />
-                </button>
                 <img className='movie__poster' alt='Постер' src={idAnswer.Poster} />
                 <dl className='movie__info-container'>
-                    <h3 className='movie__title'>{idAnswer.Title}</h3>
+                    <div className='movie__title-container'>
+                        <h3 className='movie__title'>{idAnswer.Title}</h3>
+                        <button className={isLiked ? 'movie__button liked-button' : 'movie__button'} onClick={likeMovie}>
+                            <img className='movie__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />
+                        </button>
+                    </div>
                     <dt className='movie__dt'>Год выхода</dt>
                     <dd className='movie__dd'>{idAnswer.Year}</dd>
                     <dt className='movie__dt'>Рейтинг</dt>
