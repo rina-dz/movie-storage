@@ -19,13 +19,14 @@
 
 .main__slide-container {
     display: flex;
-    height: min-content;
+    height: 520px;
     flex-direction: row;
     column-gap: 15px;
     position: relative;
     padding: 0;
     margin: 10px 0 15px 0;
     overflow-x: hidden;
+    overflow-y: hidden;
     justify-content: start;
     align-items: center;
 }
@@ -47,6 +48,16 @@
 
 .main__slide-container::after {
     right: -5px;
+}
+
+.main__slides-scrolling {
+    position: absolute;
+    display: flex;
+    height: min-content;
+    padding: 0 10px;
+    flex-direction: row;
+    column-gap: 15px;
+    top: 1.5px;
 }
 
 .main__button-container {
