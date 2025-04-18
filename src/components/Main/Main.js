@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Main.css';
 //import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -10,46 +10,46 @@ import arrowIcon from '../../images/arrow-left.svg';
 import { movie1, movie2, movie3, movie4, movie5, topMovies } from '../../utils/movies';
 
 function Main(props) {
-    const [slidesPosition, changePosition] = React.useState(0);
+    let step;
+    const movies = [movie2, movie1, movie4, movie5, movie3];
     const [rightButtonVisibility, changeRightButtonVisibility] = React.useState(true);
-    const [leftButtonVisibility, changeLeftButtonVisibility] = React.useState(false);
+    const [leftButtonVisibility, changeLeftButtonVisibility] = React.useState(true);
+    const scrollRef = useRef(null);
 
-    const movies = [movie2, movie1, movie4, movie5, movie2, movie4, movie3, movie1, movie3, movie5];
+    // бавить блокировку кнопок в крайних положениях
 
-    // сохздать переменную с постоянной величиной прокрутки для корусельки вместо 559, которая будет меняться при событии
-    // resize у экрана !!добавить eventListener 'resize' у окошка - нр от 900 px до 400px прокрутка будет равна 300px и тд
+    React.useEffect(() => {
+        checkAndResize();
+        window.addEventListener('resize', checkAndResize);
+        return () => {
+            window.removeEventListener('resize', checkAndResize);
+        }
+    }, []);
+
+    function checkAndResize() {
+        if (window.innerWidth >= 1150) {
+            step = 574;
+        }
+        if (window.innerWidth < 1150) {
+            step = 287;
+        }
+    };
 
     function leftScroll() {
-        if (slidesPosition < 0) {
-            changeRightButtonVisibility(true);
-            if (slidesPosition + 559 > 0) {
-                changePosition(0);
-                changeLeftButtonVisibility(false);
-            } else {
-                changePosition(slidesPosition + 559);
-                slidesPosition + 559 === 0 ? changeLeftButtonVisibility(false) : changeLeftButtonVisibility(true);
-            }
-        }
+        scrollRef.current.scrollBy({
+            left: -(step),
+            behavior: 'smooth'
+        })
     }
-
 
     function rightScroll() {
-        if (slidesPosition > -2885) {
-            changeLeftButtonVisibility(true);
-            if (slidesPosition - 559 < -2885 + window.innerWidth) {
-                changePosition(-2885 + window.innerWidth);
-                changeRightButtonVisibility(false);
-            } else {
-                changePosition(slidesPosition - 559);
-                slidesPosition - 570 < -2885 + window.innerWidth ? changeRightButtonVisibility(false) : changeRightButtonVisibility(true);
-            }
-        }
+        scrollRef.current.scrollBy({
+            left: step,
+            behavior: 'smooth'
+        })
     }
 
-    //для прокрутки карусельки можно сделать отрисовку первых пяти элементов массива, где будут объекты 
-    // с информацией о слайдах и при нажатии на левую стрелку будет удаляться объект с конца и он же
-    //добавляться в начало и то же самое с правой стрелкой - так получится бесконечная коруселька
-    // таким же образом с помощью таймера можно будет сделать автоматическую прокрутку каждые 10 сек
+    // 2890px 578
 
     // другой вариант прокрутки: просто при нажатии менять переменную, которая будет определять св-во left у элемента карусельки
     // так же можно будет прятать кнопки прокрутки, если коруселько уже в максимально правом или максимально левом положении
@@ -69,9 +69,9 @@ function Main(props) {
                                 <img className='main__slides-button' src={arrowIcon} alt='Налево' />
                             </button> : ''
                         }
-                        <div className='main__slides-scrolling' id='target' style={{ left: `${slidesPosition}px`, }}>
+                        <div className='main__slides-scrolling' ref={scrollRef}>
                             {topMovies.map((el) => (
-                                <Slide movie={el} isTopSlide={true} />
+                                <Slide movie={el} isTopSlide={true} key={el.imdbID} />
                             ))}
                         </div>
                         {rightButtonVisibility ?
@@ -85,7 +85,7 @@ function Main(props) {
                 {movies.length > 0 ? (
                     <SlidesList anyMoreMovies={true}>
                         {movies.map((el) => (
-                            <Slide movie={el} isTopSlide={false} />
+                            <Slide movie={el} isTopSlide={false} key={el.imdbID} />
                         ))}
                     </SlidesList>
                 ) : (
