@@ -27,7 +27,7 @@ function Profile(props) {
                         </div>
                     </div>
                     <div className="profile__links">
-                        <Link className="profile__exit-link" to="/auth">Выйти из аккаунта</Link>
+                        <Link className="profile__exit-link" to="/auth" onClick={props.signOut}>Выйти из аккаунта</Link>
                     </div>
                 </div>
             </section>
