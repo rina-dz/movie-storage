@@ -19,14 +19,36 @@
     border-radius: 25px;
 }
 
-@media screen and (max-width: 700px) and (min-width: 450px) {
+.fav-movies__text-container {
+    min-height: 400px;
+}
+
+.fav-movies__text {
+    max-width: 80%;
+    text-align: center;
+    margin: 90px auto 0;
+    font-size: 35px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+@media screen and (max-width: 730px) and (min-width: 450px) {
     .fav-movies__title {
         font-size: 32px;
+    }
+
+    .fav-movies__text {
+        font-size: 30px;
     }
 }
 
 @media screen and (max-width: 450px) {
     .fav-movies__title {
         font-size: 25px;
+    }
+
+    .fav-movies__text {
+        font-size: 23px;
     }
 }

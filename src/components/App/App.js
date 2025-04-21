@@ -17,11 +17,18 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({
     name: "",
     email: "",
+    password: "",
     favMovies: []
   });
   const [loggedIn, changeState] = React.useState(false);
+  const [favMovies, addFavMovies] = React.useState([]);
 
-  // localStorage.clear(); очистить localStorage
+  if (!localStorage.users) {
+    localStorage.setItem('users', JSON.stringify([defaultUser]));
+  }
+
+  //localStorage.clear(); 
+  // очистить localStorage
 
   React.useEffect(() => {
     if (localStorage.isLoggedIn) {
@@ -29,139 +36,112 @@ function App() {
       setCurrentUser({
         name: user.name,
         email: user.email,
+        password: user.password,
         favMovies: user.favMovies
       });
+      let movies = [];
+      user.favMovies.forEach((id) => {
+        newOMDbApi.getMovieById(id)
+          .then((movie) => {
+            movies.push(movie);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      })
+      addFavMovies(movies);
       changeState(true);
     }
   }, [loggedIn]);
 
-  //   const defaultUser = {
-  // name: "Котя",
-  // email: 'kotik@mail.meow',
-  // password: 'meowmeow',
-  // favMovies: ["tt18689424", "tt0312528", 'tt0347618', 'tt0118843', 'tt0051459', 'tt3606888', 'tt0068612']
-  // };
-
   // вынести setCurrentUser итд в отдельную функцию
 
   function handleLogin(info) {
-    if (info.email === defaultUser.email) {
-      if (info.password === defaultUser.password) {
+    if (localStorage.users) {
+      const users = JSON.parse(localStorage.users);
+      const user = users.find((i) => { return i.email === info.email });
+      if (!user) {
+        return console.log('Пользователь не найден!');
+      }
+      if (info.password === user.password) {
         setCurrentUser({
-          name: defaultUser.name,
-          email: defaultUser.email,
-          favMovies: defaultUser.favMovies
-        });
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          favMovies: user.favMovies
+        })
         changeState(true);
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('currentUser', JSON.stringify({
-          name: defaultUser.name,
-          email: defaultUser.email,
-          favMovies: defaultUser.favMovies
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          favMovies: user.favMovies
         }));
         navigate('/', { replace: true });
       } else {
         console.log('Неверный пароль!');
       }
     } else {
-      if (localStorage.users) {
-        const users = JSON.parse(localStorage.users);
-        const user = users.find((i) => { return i.email === info.email });
-        if (!user) {
-          return console.log('Пользователь не найден!');
-        }
-        if (info.password === user.password) {
-          setCurrentUser({
-            name: user.name,
-            email: user.email,
-            favMovies: user.favMovies
-          })
-          changeState(true);
-          localStorage.setItem('isLoggedIn', true);
-          localStorage.setItem('currentUser', JSON.stringify({
-            name: user.name,
-            email: user.email,
-            favMovies: user.favMovies
-          }));
-          navigate('/', { replace: true });
-        } else {
-          console.log('Неверный пароль!');
-        }
-      } else {
-        console.log('Пользователь не найден!');
-      }
+      return console.log('Пользователь не найден!');
     }
   }
-  //meow@mail.com
+
+
   function handleRegister(info) {
-    if (info.email === defaultUser.email) {
-      return console.log('Почта уже занята!');
-    } else {
-      if (localStorage.users) {
-        const users = JSON.parse(localStorage.getItem('users'));
-        if (users.some((i) => { return i.email === info.email })) {
-          return console.log('Почта уже занята!');
-        }
+    if (localStorage.users) {
+      const users = JSON.parse(localStorage.getItem('users'));
+      if (users.some((i) => { return i.email === info.email })) {
+        return console.log('Почта уже занята!');
       }
     }
-
     setCurrentUser({
-      name: info.name,
-      email: info.email,
-      favMovies: []
-    });
-    changeState(true);
-
-    console.log(JSON.stringify({
-      name: info.name,
-      email: info.email,
-      favMovies: []
-    }));
-    localStorage.setItem('isLoggedIn', true);
-    localStorage.setItem('currentUser', JSON.stringify({
-      name: info.name,
-      email: info.email,
-      favMovies: []
-    }));
-
-    const user = {
       name: info.name,
       email: info.email,
       password: info.password,
       favMovies: []
-    };
-
-    //doggy@gav.com qwerty
-
-    if (localStorage.users) {
-      const users = JSON.parse(localStorage.getItem('users'));
-      const newUsers = JSON.stringify([...users, user]);
-      localStorage.setItem('users', newUsers);
-    } else {
-      const newUsers = JSON.stringify([user]);
-      localStorage.setItem('users', newUsers);
-    }
-
-    console.log(`users без парса ${localStorage.getItem('users')}`);
-    console.log(`users c парсом ${JSON.parse(localStorage.getItem('users'))}`);
-
+    });
+    changeState(true);
+    localStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('currentUser', JSON.stringify({
+      name: info.name,
+      email: info.email,
+      password: info.password,
+      favMovies: []
+    }));
     navigate('/', { replace: true });
   }
 
+
   function signOut() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUser');
+    let users = JSON.parse(localStorage.getItem('users'));
+    console.log(`Изначальный список юзеров - ${users}`);
+    const userIndex = users.findIndex((i) => { return i.email === user.email });
+    console.log(`Индекс элемента в массиве - ${userIndex}`);
+    if (userIndex >= 0) {
+      users.splice(userIndex, 1, user);
+      console.log(`Новый список юзеров после замены - ${users}`);
+    } else {
+      users.push(user);
+      console.log(`Новый список юзеров без замены - ${users}`);
+    }
+    localStorage.setItem('users', JSON.stringify(users));
     setCurrentUser({ name: "", email: "", favMovies: [] });
     changeState(false);
     navigate('/auth', { replace: true });
   }
+
 
   function getMovie(info) {
     if (info.name) {
       if (info.year) {
         newOMDbApi.getMovieByNameAndYear(info)
           .then((movie) => {
-            console.log(movie);
+            //console.log(movie);
+            return (movie);
           })
           .catch((err) => {
             console.log(err);
@@ -169,20 +149,50 @@ function App() {
       } else {
         newOMDbApi.getMovieByName(info)
           .then((movie) => {
-            console.log(movie);
+            //console.log(movie);
+            return (movie);
           })
           .catch((err) => {
             console.log(err);
           })
       }
-    } else {
-      newOMDbApi.getMovieById(info)
+    }
+  }
+
+
+  function getMovieById(id) {
+    newOMDbApi.getMovieById(id)
+      .then((movie) => {
+        //console.log(movie);
+        return (movie);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handleLikeMovie(id) {
+    if (loggedIn) {
+      //добавить значок загрузки чтобы нельзя было перейти в favmovies до добавления
+      newOMDbApi.getMovieById(id)
         .then((movie) => {
-          console.log(movie);
+          addFavMovies([...favMovies, movie]);
+          let savedMovies = [...currentUser.favMovies, id];
+          let user = currentUser;
+          user.favMovies = savedMovies;
+
+          setCurrentUser(user);
+          localStorage.setItem('currentUser', JSON.stringify(user));
         })
         .catch((err) => {
           console.log(err);
+          alert('Произошла ошибка на сервере');
         })
+        .finally(() => {
+          // убрать значок загрузки
+        })
+    } else {
+      navigate('/auth', { replace: true });
     }
   }
 
@@ -190,7 +200,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/" element={<Main isLoggedIn={loggedIn} />} />
+          <Route path="/" element={<Main isLoggedIn={loggedIn} likeMovie={handleLikeMovie} />} />
           <Route path="/exmp" element={<Movie isLoggedIn={loggedIn} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth handleLogin={handleLogin} handleRegister={handleRegister} />} />
@@ -202,6 +212,7 @@ function App() {
           <Route path="/fav-movies" element={<ProtectedRoute
             isLoggedIn={loggedIn}
             element={FavMovies}
+            movies={favMovies}
           />} />
         </Routes>
         <Animatic />
