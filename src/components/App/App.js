@@ -10,6 +10,7 @@ import FavMovies from '../FavMovies/FavMovies.js';
 import Movie from '../Movie/Movie';
 import Animatic from '../Animatic/Animatic.js';
 import defaultUser from '../../utils/defaultUser.js';
+import { newOMDbApi } from '../../utils/OMDbApi.js';
 
 function App() {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ function App() {
   // password: 'meowmeow',
   // favMovies: ["tt18689424", "tt0312528", 'tt0347618', 'tt0118843', 'tt0051459', 'tt3606888', 'tt0068612']
   // };
+
+  // вынести setCurrentUser итд в отдельную функцию
 
   function handleLogin(info) {
     if (info.email === defaultUser.email) {
@@ -151,6 +154,36 @@ function App() {
     setCurrentUser({ name: "", email: "", favMovies: [] });
     changeState(false);
     navigate('/auth', { replace: true });
+  }
+
+  function getMovie(info) {
+    if (info.name) {
+      if (info.year) {
+        newOMDbApi.getMovieByNameAndYear(info)
+          .then((movie) => {
+            console.log(movie);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      } else {
+        newOMDbApi.getMovieByName(info)
+          .then((movie) => {
+            console.log(movie);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    } else {
+      newOMDbApi.getMovieById(info)
+        .then((movie) => {
+          console.log(movie);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }
 
   return (
