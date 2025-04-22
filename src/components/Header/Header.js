@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Header.css";
+import SearchPopup from '../SearchPopup/SearchPopup';
 import { Link } from 'react-router-dom';
 import search__icon from '../../images/search-icon.png';
 import profile_icon from '../../images/profile-icon.svg'
@@ -19,13 +20,16 @@ function Header() {
         setNameValue('');
     }
 
+    // Написать регулярное выражение для проверки imdbID (начинается с ii + 7 цифр)
+
     return (
         <header className="header">
             <div className='header__main-container'>
                 <Link className='header__main-logo' to='/' />
                 <form className='header__search-form'>
+                    <SearchPopup />
                     <img className="header__search-icon" src={search__icon} alt="Иконка поиска" />
-                    <input className='header__search-input' placeholder="Название фильма" onChange={handleNameChange} value={nameValue || ""} />
+                    <input className='header__search-input' placeholder="Введите imdbID" onChange={handleNameChange} value={nameValue || ""} />
                     {nameValue ? <button className='header__delete-button' onClick={handleNameDelete} /> : ''}
                 </form>
                 {isLoggedIn ? (

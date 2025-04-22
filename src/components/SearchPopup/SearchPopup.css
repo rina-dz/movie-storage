@@ -1,0 +1,160 @@
+.search-popup {
+    position: absolute;
+    z-index: 10;
+    top: 80px;
+    width: 580px;
+    height: min-content;
+    background-color: rgb(20, 20, 20, 0.95);
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    border: 2px rgb(20, 20, 20) solid;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.visibly {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.search-popup__poster {
+    width: 250px;
+    max-height: 325px;
+    margin-right: 15px;
+    background-position: center;
+    background-color: transparent;
+}
+
+.search-popup__info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    width: 325px;
+}
+
+.search-popup__title {
+    max-width: 90%;
+    font-size: 23px;
+    margin: 0 0 15px;
+}
+
+.search-popup__span {
+    opacity: 0.6;
+}
+
+.search-popup__year {
+    margin: 0 0 10px;
+}
+
+.search-popup__genre {
+    margin: 0;
+    max-width: 95%;
+}
+
+.search-popup__button {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: min-content;
+    margin: auto 5px auto auto;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: rgb(144, 144, 144);
+    transition: background-color 0.24s ease;
+}
+
+.search-popup__button:hover {
+    background-color: rgb(66, 66, 66);
+}
+
+.search-popup__button-img {
+    transform: rotate(180deg);
+}
+
+
+@media screen and (max-width: 1200px) and (min-width: 780px) {
+    .search-popup {
+        width: 420px;
+    }
+
+    .search-popup__poster {
+        width: 200px;
+        max-height: 260px;
+        margin-right: 10px;
+    }
+
+    .search-popup__info-container {
+        font-size: 15px;
+    }
+
+    .search-popup__title {
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+    .search-popup__year {
+        margin-bottom: 5px;
+    }
+
+    .search-popup__button {
+        margin-left: 0px;
+        height: 20px;
+        width: 20px;
+        border-radius: 8px;
+    }
+}
+
+
+@media screen and (max-width: 780px) and (min-width: 650px) {
+    .search-popup {
+        width: 350px;
+        padding: 5px;
+    }
+
+    .search-popup__poster {
+        width: 150px;
+        max-height: 200px;
+    }
+
+    .search-popup__info-container {
+        font-size: 12px;
+    }
+
+    .search-popup__title {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .search-popup__year {
+        margin-bottom: 5px;
+    }
+
+    .search-popup__button {
+        margin-left: 0px;
+        height: 20px;
+        width: 20px;
+        border-radius: 8px;
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .search-popup {
+        display: none;
+    }
+
+}
