@@ -60,7 +60,7 @@ function Main(props) {
 
     return (
         <>
-            <Header isLoggedIn={props.isLoggedIn} />
+            <Header />
             <section className='main'>
                 <div className='main__slides'>
                     <h2 className='main__slide-title'>Топ-10 на IMDb на этой неделе:</h2>
@@ -72,7 +72,8 @@ function Main(props) {
                         }
                         <div className='main__slides-scrolling' ref={scrollRef}>
                             {topMovies.map((el) => (
-                                <Slide movie={el} isTopSlide={true} key={el.imdbID} likeMovie={props.likeMovie} dislikeMovie={props.dislikeMovie} />
+                                <Slide movie={el} isTopSlide={true} key={el.imdbID} likeMovie={props.likeMovie}
+                                    dislikeMovie={props.dislikeMovie} navigateToMovie={props.navigateToMovie} />
                             ))}
                         </div>
                         {rightButtonVisibility ?
@@ -86,7 +87,8 @@ function Main(props) {
                 {movies.length > 0 ? (
                     <SlidesList anyMoreMovies={true}>
                         {movies.map((el) => (
-                            <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie} dislikeMovie={props.dislikeMovie} />
+                            <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie}
+                                dislikeMovie={props.dislikeMovie} navigateToMovie={props.navigateToMovie} />
                         ))}
                     </SlidesList>
                 ) : (

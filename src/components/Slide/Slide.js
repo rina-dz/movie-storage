@@ -26,8 +26,12 @@ function Slide(props) {
         setMovieLike(false);
     }
 
+    function navigateToMovie() {
+        props.navigateToMovie(imdbID)
+    }
+
     return (
-        <aside className='slide'>
+        <aside className='slide' onClick={navigateToMovie}>
             <img className='slide__poster' alt='Постер фильма' src={Poster} />
             <div className='slide__text-container'>
                 {props.isTopSlide ?

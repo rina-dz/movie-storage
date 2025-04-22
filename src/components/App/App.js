@@ -22,6 +22,7 @@ function App() {
   });
   const [loggedIn, changeState] = React.useState(false);
   const [favMovies, addFavMovies] = React.useState([]);
+  const [currentMovie, changeMovie] = React.useState();
 
   if (!localStorage.users) {
     localStorage.setItem('users', JSON.stringify([defaultUser]));
@@ -179,7 +180,6 @@ function App() {
           let savedMovies = [...currentUser.favMovies, id];
           let user = currentUser;
           user.favMovies = savedMovies;
-
           setCurrentUser(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
         })
@@ -205,22 +205,37 @@ function App() {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
+  function navigateToMovie(id) {
+    newOMDbApi.getMovieById(id)
+      .then((movie) => {
+        changeMovie(movie);
+        navigate('/movie', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/" element={<Main isLoggedIn={loggedIn} likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie} />} />
-          <Route path="/exmp" element={<Movie isLoggedIn={loggedIn} likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie} />} />
+          <Route path="/" element={<Main
+            likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
+            navigateToMovie={navigateToMovie} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth handleLogin={handleLogin} handleRegister={handleRegister} />} />
-          <Route path="/profile" element={<ProtectedRoute
-            isLoggedIn={loggedIn}
+          <Route path="/movie" element={<ProtectedRoute element={Movie}
+            isAllowIn={currentMovie} likeMovie={handleLikeMovie}
+            dislikeMovie={handleDislikeMovie} movie={currentMovie} />} />
+          <Route path="/profile" element={<ProtectedRoute element={Profile}
+            isAllowIn={loggedIn}
             signOut={signOut}
-            element={Profile}
           />} />
-          <Route path="/fav-movies" element={<ProtectedRoute
-            isLoggedIn={loggedIn} element={FavMovies} movies={favMovies}
+          <Route path="/fav-movies" element={<ProtectedRoute element={FavMovies}
+            isAllowIn={loggedIn} movies={favMovies}
             likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
+            navigateToMovie={navigateToMovie}
           />} />
         </Routes>
         <Animatic />
