@@ -9,28 +9,26 @@ import heart_clicked from '../../images/heart-icon__clicked.png';
 import heart_default from '../../images/heart-icon__default.png';
 
 function Movie(props) {
+    const { Poster, Title, rate, Year, imdbID } = props.movie;
     const [isLiked, setMovieLike] = React.useState(false);
     const currentUser = useContext(CurrentUserContext);
+    const user = JSON.parse(localStorage.getItem('currentUser'));
 
     React.useEffect(() => {
-        currentUser.favMovies.includes(idAnswer.imdbID) ? setMovieLike(true) : setMovieLike(false)
+        if (user) {
+            user.favMovies.includes(imdbID) ? setMovieLike(true) : setMovieLike(false);
+        }
     }, []);
 
-    function likeMovie() {
-        let index = currentUser.favMovies.indexOf(idAnswer.imdbID);
-        if (index > -1) {
-            currentUser.favMovies.splice(index, 1);
-            setMovieLike(false);
-            console.log(`Удалён`);
-        } else {
-            currentUser.favMovies.push(idAnswer.imdbID);
-            setMovieLike(true);
-            console.log(`Добавлен`);
-        }
-        console.log(`Избранные фильмы: ${currentUser.favMovies}`);
+    function handleLikeMovie() {
+        props.likeMovie(imdbID);
+        setMovieLike(true);
     }
 
-    // Дописать ждя других разрешений
+    function dislikeMovie() {
+        props.dislikeMovie(imdbID);
+        setMovieLike(false);
+    }
 
     return (
         <>
@@ -40,7 +38,7 @@ function Movie(props) {
                 <dl className='movie__info-container'>
                     <div className='movie__title-container'>
                         <h3 className='movie__title'>{idAnswer.Title}</h3>
-                        <button className={isLiked ? 'movie__button liked-button' : 'movie__button'} onClick={likeMovie}>
+                        <button className={isLiked ? 'movie__button liked-button' : 'movie__button'} onClick={isLiked ? dislikeMovie : handleLikeMovie}>
                             <img className='movie__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />
                         </button>
                     </div>

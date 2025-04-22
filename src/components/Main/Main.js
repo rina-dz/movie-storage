@@ -72,7 +72,7 @@ function Main(props) {
                         }
                         <div className='main__slides-scrolling' ref={scrollRef}>
                             {topMovies.map((el) => (
-                                <Slide movie={el} isTopSlide={true} key={el.imdbID} likeMovie={props.likeMovie} />
+                                <Slide movie={el} isTopSlide={true} key={el.imdbID} likeMovie={props.likeMovie} dislikeMovie={props.dislikeMovie} />
                             ))}
                         </div>
                         {rightButtonVisibility ?
@@ -86,7 +86,7 @@ function Main(props) {
                 {movies.length > 0 ? (
                     <SlidesList anyMoreMovies={true}>
                         {movies.map((el) => (
-                            <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie} />
+                            <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie} dislikeMovie={props.dislikeMovie} />
                         ))}
                     </SlidesList>
                 ) : (

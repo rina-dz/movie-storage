@@ -21,6 +21,11 @@ function Slide(props) {
         setMovieLike(true);
     }
 
+    function dislikeMovie() {
+        props.dislikeMovie(imdbID);
+        setMovieLike(false);
+    }
+
     return (
         <aside className='slide'>
             <img className='slide__poster' alt='Постер фильма' src={Poster} />
@@ -34,7 +39,7 @@ function Slide(props) {
                 }
                 <h3 className='slide__title'>{Title}</h3>
             </div>
-            <button className={isLiked ? 'slide__button liked-button' : 'slide__button'} onClick={handleLikeMovie}>
+            <button className={isLiked ? 'slide__button liked-button' : 'slide__button'} onClick={isLiked ? dislikeMovie : handleLikeMovie}>
                 <img className='slide__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />
             </button>
 

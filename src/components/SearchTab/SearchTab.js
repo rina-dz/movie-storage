@@ -23,6 +23,8 @@ function SearchTab() {
     //     props.movieSearch(nameValue, isCheckboxChecked); }
     // onSubmit={handleFormSubmit}
 
+    // сделать поиск по imdbID!!!!
+
     return (
         <section className="search">
             <form className="search__form">

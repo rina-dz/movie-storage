@@ -159,7 +159,6 @@ function App() {
     }
   }
 
-
   function getMovieById(id) {
     newOMDbApi.getMovieById(id)
       .then((movie) => {
@@ -196,12 +195,22 @@ function App() {
     }
   }
 
+  function handleDislikeMovie(id) {
+    let newFavMovies = favMovies.filter((movie) => movie.imdbID !== id);
+    addFavMovies(newFavMovies);
+    let user = currentUser;
+    let moviesId = user.favMovies.filter((movieId) => movieId !== id);
+    user.favMovies = moviesId;
+    setCurrentUser(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
-          <Route path="/" element={<Main isLoggedIn={loggedIn} likeMovie={handleLikeMovie} />} />
-          <Route path="/exmp" element={<Movie isLoggedIn={loggedIn} />} />
+          <Route path="/" element={<Main isLoggedIn={loggedIn} likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie} />} />
+          <Route path="/exmp" element={<Movie isLoggedIn={loggedIn} likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth handleLogin={handleLogin} handleRegister={handleRegister} />} />
           <Route path="/profile" element={<ProtectedRoute
@@ -210,9 +219,8 @@ function App() {
             element={Profile}
           />} />
           <Route path="/fav-movies" element={<ProtectedRoute
-            isLoggedIn={loggedIn}
-            element={FavMovies}
-            movies={favMovies}
+            isLoggedIn={loggedIn} element={FavMovies} movies={favMovies}
+            likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
           />} />
         </Routes>
         <Animatic />
