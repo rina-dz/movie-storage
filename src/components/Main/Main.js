@@ -10,31 +10,10 @@ import arrowIcon from '../../images/arrow-left.svg';
 import { movie1, movie2, movie3, movie4, movie5, topMovies } from '../../utils/movies';
 
 function Main(props) {
-    let step;
+    let step = 574;
     const movies = [movie2, movie1, movie4, movie5, movie3];
-    const [rightButtonVisibility, changeRightButtonVisibility] = React.useState(true);
-    const [leftButtonVisibility, changeLeftButtonVisibility] = React.useState(true);
     const scrollRef = useRef(null);
-
     // бавить блокировку кнопок в крайних положениях
-    // убрать стрелки на мобильном разрешении и оставить только прокрутку сенсором + полосочка положениия внизу контейнера
-
-    React.useEffect(() => {
-        checkAndResize();
-        window.addEventListener('resize', checkAndResize);
-        return () => {
-            window.removeEventListener('resize', checkAndResize);
-        }
-    }, []);
-
-    function checkAndResize() {
-        if (window.innerWidth >= 1150) {
-            step = 574;
-        }
-        if (window.innerWidth < 1150) {
-            step = 287;
-        }
-    };
 
     function leftScroll() {
         scrollRef.current.scrollBy({
@@ -50,13 +29,23 @@ function Main(props) {
         })
     }
 
-    // 2890px 578
-
-    // другой вариант прокрутки: просто при нажатии менять переменную, которая будет определять св-во left у элемента карусельки
-    // так же можно будет прятать кнопки прокрутки, если коруселько уже в максимально правом или максимально левом положении
-    // мб нажатие будет только одно, чтобы разом прокрутить до конца
-
     // Приходит по 10 фильмов, далее нужно отправлять такой же запрос с другой страницей
+
+
+    // const [rightButtonVisibility, changeRightButtonVisibility] = React.useState(true);
+    // const [leftButtonVisibility, changeLeftButtonVisibility] = React.useState(true);
+
+    // {rightButtonVisibility ?
+    //     <button className='main__button-container main__right-button'>
+    //         <img className='main__slides-button' src={arrowIcon} alt='Направо' onClick={rightScroll} />
+    //     </button> : ''
+    // }
+
+    // {leftButtonVisibility ?
+    //     <button className='main__button-container main__left-button' onClick={leftScroll}>
+    //         <img className='main__slides-button' src={arrowIcon} alt='Налево' />
+    //     </button> : ''
+    // }
 
     return (
         <>
@@ -65,22 +54,18 @@ function Main(props) {
                 <div className='main__slides'>
                     <h2 className='main__slide-title'>Топ-10 на IMDb на этой неделе:</h2>
                     <div className='main__slide-container'>
-                        {leftButtonVisibility ?
-                            <button className='main__button-container main__left-button' onClick={leftScroll}>
-                                <img className='main__slides-button' src={arrowIcon} alt='Налево' />
-                            </button> : ''
-                        }
+                        <button className='main__button-container main__left-button' onClick={leftScroll}>
+                            <img className='main__slides-button' src={arrowIcon} alt='Налево' />
+                        </button>
                         <div className='main__slides-scrolling' ref={scrollRef}>
                             {topMovies.map((el) => (
                                 <Slide movie={el} isTopSlide={true} key={el.imdbID} likeMovie={props.likeMovie}
                                     dislikeMovie={props.dislikeMovie} navigateToMovie={props.navigateToMovie} />
                             ))}
                         </div>
-                        {rightButtonVisibility ?
-                            <button className='main__button-container main__right-button'>
-                                <img className='main__slides-button' src={arrowIcon} alt='Направо' onClick={rightScroll} />
-                            </button> : ''
-                        }
+                        <button className='main__button-container main__right-button'>
+                            <img className='main__slides-button' src={arrowIcon} alt='Направо' onClick={rightScroll} />
+                        </button>
                     </div>
                 </div>
                 <SearchTab />
