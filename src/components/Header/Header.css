@@ -44,6 +44,18 @@
     border-radius: 20px;
 }
 
+.header__form-tip {
+    position: absolute;
+    margin: 0 0 0 33px;
+    top: 9px;
+    color: aliceblue;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
 .header__search-icon {
     width: 30px;
     height: 30px;
@@ -91,6 +103,15 @@
 
 .header__delete-button:hover {
     opacity: 0.7;
+}
+
+.header__loading-icon {
+    margin-right: 8px;
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+    background-color: transparent;
+    animation: 1s linear 0s normal none infinite running rot;
 }
 
 .header__enable-link {
@@ -183,6 +204,16 @@
 
     100% {
         left: 150%;
+    }
+}
+
+@keyframes rot {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
 

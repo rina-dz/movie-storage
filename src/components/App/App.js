@@ -161,11 +161,7 @@ function App() {
   }
 
   function getMovieById(id) {
-    newOMDbApi.getMovieById(id)
-      .then((movie) => {
-        //console.log(movie);
-        return (movie);
-      })
+    return newOMDbApi.getMovieById(id)
       .catch((err) => {
         console.log(err);
       })
@@ -209,6 +205,8 @@ function App() {
     newOMDbApi.getMovieById(id)
       .then((movie) => {
         changeMovie(movie);
+      })
+      .then(() => {
         navigate('/movie', { replace: true });
       })
       .catch((err) => {
@@ -222,20 +220,21 @@ function App() {
         <Routes>
           <Route path="/" element={<Main
             likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
-            navigateToMovie={navigateToMovie} />} />
+            navigateToMovie={navigateToMovie} getMovieById={getMovieById} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth handleLogin={handleLogin} handleRegister={handleRegister} />} />
           <Route path="/movie" element={<ProtectedRoute element={Movie}
             isAllowIn={currentMovie} likeMovie={handleLikeMovie}
+            navigateToMovie={navigateToMovie} getMovieById={getMovieById}
             dislikeMovie={handleDislikeMovie} movie={currentMovie} />} />
           <Route path="/profile" element={<ProtectedRoute element={Profile}
-            isAllowIn={loggedIn}
-            signOut={signOut}
+            isAllowIn={loggedIn} signOut={signOut}
+            navigateToMovie={navigateToMovie} getMovieById={getMovieById}
           />} />
           <Route path="/fav-movies" element={<ProtectedRoute element={FavMovies}
             isAllowIn={loggedIn} movies={favMovies}
             likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
-            navigateToMovie={navigateToMovie}
+            navigateToMovie={navigateToMovie} getMovieById={getMovieById}
           />} />
         </Routes>
         <Animatic />

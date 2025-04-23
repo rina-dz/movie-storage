@@ -9,7 +9,7 @@ function FavMovies(props) {
 
     return (
         <>
-            <Header isLoggedIn={props.isLoggedIn} />
+            <Header getMovieById={props.getMovieById} navigateToMovie={props.navigateToMovie} />
             <section className='fav-movies'>
                 <h2 className='fav-movies__title'>Избранные фильмы</h2>
                 {props.movies.length > 0 ? 

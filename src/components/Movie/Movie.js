@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Movie.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import rateStar from '../../images/star-icon.svg';
 import heart_clicked from '../../images/heart-icon__clicked.png';
 import heart_default from '../../images/heart-icon__default.png';
+import poster_none from '../../images/poster_none.png';
 
 function Movie(props) {
     const movie = props.movie;
     const [isLiked, setMovieLike] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('currentUser'));
+    const posterRef = useRef(null);
+    let posterSrc = movie.Poster === "N/A" ? poster_none : movie.Poster;
 
     React.useEffect(() => {
         if (user) {
@@ -29,9 +32,10 @@ function Movie(props) {
 
     return (
         <>
-            <Header />
+            <Header getMovieById={props.getMovieById} navigateToMovie={props.navigateToMovie} />
             <section className='movie'>
-                <img className='movie__poster' alt='Постер' src={movie.Poster} />
+                <img className='movie__poster' alt='Постер' src={posterSrc} 
+                onError={() => { posterRef.current.src = poster_none }} ref={posterRef} />
                 <dl className='movie__info-container'>
                     <div className='movie__title-container'>
                         <h3 className='movie__title'>{movie.Title}</h3>

@@ -21,6 +21,17 @@
     transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
+.search-popup__error {
+    color: aliceblue;
+    opacity: 0.8;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px auto;
+}
+
 .search-popup__poster {
     width: 250px;
     max-height: 325px;

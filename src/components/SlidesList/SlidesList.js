@@ -2,6 +2,7 @@ import React from 'react';
 import './SlidesList.css';
 
 function SlidesList(props) {
+    // доавить значок загрузки 
     return (
         <section className='slides-list'>
             <div className='slides-list__container'>

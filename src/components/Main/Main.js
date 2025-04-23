@@ -49,7 +49,7 @@ function Main(props) {
 
     return (
         <>
-            <Header />
+            <Header getMovieById={props.getMovieById} navigateToMovie={props.navigateToMovie} />
             <section className='main'>
                 <div className='main__slides'>
                     <h2 className='main__slide-title'>Топ-10 на IMDb на этой неделе:</h2>

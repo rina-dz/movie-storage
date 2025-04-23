@@ -12,7 +12,7 @@ function Profile(props) {
 
     return (
         <>
-            <Header isLoggedIn={props.isLoggedIn} />
+            <Header getMovieById={props.getMovieById} navigateToMovie={props.navigateToMovie} />
             <section className="profile">
                 <div className='profile__main-container'>
                     <p className="profile__title">Привет, <span className='profile__custom-title'>{currentUser.name}</span>!</p>
