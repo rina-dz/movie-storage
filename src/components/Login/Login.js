@@ -8,6 +8,8 @@ function Login(props) {
     const [isVisible, setVisible] = React.useState(false);
     const { values, handleChange, handleSubmit, errors, isValid } = useFormWithValidation(props.handleSubmit);
 
+    // disabled={nameValue.length < 4 ? true : false} для кнопки войти
+
     return (
         <form className='login__form' onSubmit={handleSubmit}>
             <input className='login__input' placeholder="E-mail" type='email' name="email" value={values?.email}

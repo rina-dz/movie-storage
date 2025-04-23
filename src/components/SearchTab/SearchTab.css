@@ -22,6 +22,19 @@
     padding-bottom: 15px;
 }
 
+.search__form-tip {
+    position: absolute;
+    margin: 0;
+    top: -15px;
+    left: 70px;
+    color: #a0a0a0;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12.5px;
+    opacity: 0.6;
+}
+
 .search__line-icon {
     width: 34px;
     height: 34px;
@@ -132,9 +145,15 @@
 
 @media screen and (max-width: 550px) {
     .search {
-        padding: 10px;
+        padding: 13px;
         margin-top: 25px;
         border-radius: 20px;
+    }
+
+    .search__form-tip {
+        top: -12px;
+        left: 8px;
+        font-size: 11px;
     }
 
     .search__line-icon {
@@ -177,7 +196,11 @@
 @media screen and (min-width: 551px) and (max-width: 900px) {
     .search {
         max-width: 708px;
-        padding: 15px;
+        padding: 18px;
+    }
+
+    .search__form-tip {
+        left: 12%;
     }
 
     .search__line-input {

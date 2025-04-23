@@ -136,22 +136,20 @@ function App() {
   }
 
 
-  function getMovie(info) {
+  function getMovies(info) {
     if (info.name) {
       if (info.year) {
-        newOMDbApi.getMovieByNameAndYear(info)
-          .then((movie) => {
-            //console.log(movie);
-            return (movie);
+        return newOMDbApi.getMovieByNameAndYear(info)
+          .then((movies) => {
+            console.log(movies);
           })
           .catch((err) => {
             console.log(err);
           })
       } else {
-        newOMDbApi.getMovieByName(info)
-          .then((movie) => {
-            //console.log(movie);
-            return (movie);
+        return newOMDbApi.getMovieByName(info)
+          .then((movies) => {
+            console.log(movies);
           })
           .catch((err) => {
             console.log(err);
@@ -220,6 +218,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main
             likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
+            getMovies={getMovies}
             navigateToMovie={navigateToMovie} getMovieById={getMovieById} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth handleLogin={handleLogin} handleRegister={handleRegister} />} />

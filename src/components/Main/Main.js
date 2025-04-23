@@ -68,7 +68,7 @@ function Main(props) {
                         </button>
                     </div>
                 </div>
-                <SearchTab />
+                <SearchTab getMovies={props.getMovies} />
                 {movies.length > 0 ? (
                     <SlidesList anyMoreMovies={true}>
                         {movies.map((el) => (

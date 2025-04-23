@@ -13,6 +13,11 @@ function Register(props) {
         e.target.value === passwordInputRef.current.value ? console.log('true') : console.log('false');
     }
 
+    // disabled={nameValue.length < 4 ? true : false} для кнопки регистрации
+    // disabled=false в конце функции проверки, где все поля должны быть isValid=true и пароль и повторите пароль
+    // совпадают, иначе под полем "повторите пароль" подсказка "Пароли не совпадают"
+    // function checkValidity() { if (isValid && passwordRef === repeatPasswordRef) { register__button } }
+
     return (
         <form className='register__form' onSubmit={handleSubmit}>
             <input className='register__input' name='name' placeholder='Имя' value={values?.name}
