@@ -37,7 +37,7 @@ class OMDbApi {
 }
 
 const newOMDbApi = new OMDbApi({
-    baseUrl: 'http://www.omdbapi.com/?apikey=27310c94&'
+    baseUrl: 'https://www.omdbapi.com/?apikey=27310c94&'
 })
 
 export { newOMDbApi };
