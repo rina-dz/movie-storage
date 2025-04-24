@@ -7,13 +7,41 @@ import SearchTab from '../SearchTab/SearchTab';
 import SlidesList from '../SlidesList/SlidesList';
 import Footer from '../Footer/Footer';
 import arrowIcon from '../../images/arrow-left.svg';
-import { movie1, movie2, movie3, movie4, movie5, topMovies } from '../../utils/movies';
+import { topMovies } from '../../utils/movies';
 
 function Main(props) {
+    const { totalResults, Response } = props.searchedMoviesInfo;
     let step = 574;
-    const movies = [movie2, movie1, movie4, movie5, movie3];
     const scrollRef = useRef(null);
+    // const [movies, addMoreMovies] = React.useState(props.searchedMovies);
+    // const [visibleMovies, addMoreVisibleMovies] = React.useState([]);
+
     // бавить блокировку кнопок в крайних положениях
+    React.useEffect(() => {
+        checkAndResize();
+        window.addEventListener('resize', checkAndResize);
+        return () => {
+            window.removeEventListener('resize', checkAndResize);
+        }
+    }, []);
+
+    function checkAndResize() {
+        if (window.innerWidth >= 1527) {
+            //console.log(10);
+            //addMoreVisibleMovies(movies.slice(0, 10));
+        }
+        if (window.innerWidth < 1527 && window.innerWidth >= 1218) {
+            //console.log(8);
+            //addMoreVisibleMovies(movies.slice(0, 8));
+        }
+        if (window.innerWidth <= 1217 && window.innerWidth > 909) {
+            //console.log(6);
+            //addMoreVisibleMovies(movies.slice(0, 6));
+        }
+        if (window.innerWidth < 910) {
+            //console.log(10);
+        }
+    };
 
     function leftScroll() {
         scrollRef.current.scrollBy({
@@ -29,23 +57,10 @@ function Main(props) {
         })
     }
 
+
     // Приходит по 10 фильмов, далее нужно отправлять такой же запрос с другой страницей
-
-
-    // const [rightButtonVisibility, changeRightButtonVisibility] = React.useState(true);
-    // const [leftButtonVisibility, changeLeftButtonVisibility] = React.useState(true);
-
-    // {rightButtonVisibility ?
-    //     <button className='main__button-container main__right-button'>
-    //         <img className='main__slides-button' src={arrowIcon} alt='Направо' onClick={rightScroll} />
-    //     </button> : ''
-    // }
-
-    // {leftButtonVisibility ?
-    //     <button className='main__button-container main__left-button' onClick={leftScroll}>
-    //         <img className='main__slides-button' src={arrowIcon} alt='Налево' />
-    //     </button> : ''
-    // }
+    // добавить каунтер с изначальным знач 1 и увеличивать его при нажатии ещё до момента пока не поменяется
+    // инфо из SearchTab
 
     return (
         <>
@@ -68,10 +83,10 @@ function Main(props) {
                         </button>
                     </div>
                 </div>
-                <SearchTab getMovies={props.getMovies} />
-                {movies.length > 0 ? (
-                    <SlidesList anyMoreMovies={true}>
-                        {movies.map((el) => (
+                <SearchTab getMovies={props.getMovies} reloadSearch={props.reloadSearch} />
+                {Response === 'True' ? (
+                    <SlidesList anyMoreMovies={props.moreMoviesStatus} addMoreMovies={props.addMoreMovies} getNextPage={props.getNextPage}>
+                        {props.searchedMovies.map((el) => (
                             <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie}
                                 dislikeMovie={props.dislikeMovie} navigateToMovie={props.navigateToMovie} />
                         ))}
@@ -86,3 +101,20 @@ function Main(props) {
 }
 
 export default Main;
+
+
+
+// const [rightButtonVisibility, changeRightButtonVisibility] = React.useState(true);
+// const [leftButtonVisibility, changeLeftButtonVisibility] = React.useState(true);
+
+// {rightButtonVisibility ?
+//     <button className='main__button-container main__right-button'>
+//         <img className='main__slides-button' src={arrowIcon} alt='Направо' onClick={rightScroll} />
+//     </button> : ''
+// }
+
+// {leftButtonVisibility ?
+//     <button className='main__button-container main__left-button' onClick={leftScroll}>
+//         <img className='main__slides-button' src={arrowIcon} alt='Налево' />
+//     </button> : ''
+// }

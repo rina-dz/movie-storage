@@ -68,6 +68,14 @@
     border: 1.5px solid rgb(144, 144, 144);
 }
 
+.search__loading-icon {
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+    background-color: transparent;
+    animation: 1s linear 0s normal none infinite running rot;
+}
+
 .search__delete-button {
     position: absolute;
     top: 5px;
@@ -93,7 +101,12 @@
     cursor: pointer;
     background-color: #000000;
     border: none;
-    padding: 8px 10.35px;
+    width: 52px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     border-radius: 48px;
     color: #FFF;
     text-align: center;
@@ -135,12 +148,28 @@
     font-style: normal;
     font-weight: 300;
     font-size: 18px;
+    -moz-appearance: textfield;
+}
+
+.search__year-input::-webkit-outer-spin-button,
+.search__year-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 .search__year-input:focus {
     font-size: 20px;
     color: #E8E8E8;
     outline: 1.5px solid rgb(144, 144, 144);
+}
+
+@keyframes rot {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 550px) {

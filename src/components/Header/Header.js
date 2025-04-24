@@ -3,7 +3,7 @@ import "./Header.css";
 import SearchPopup from '../SearchPopup/SearchPopup';
 import { Link } from 'react-router-dom';
 import search_icon from '../../images/search-icon.png';
-import loading_icon from '../../images/loading-icon.svg';
+import loading_icon from '../../images/loading-icon_color-black.svg';
 import profile_icon from '../../images/profile-icon.svg'
 import favorite_icon from '../../images/favorite_icon.svg';
 
@@ -60,6 +60,7 @@ function Header(props) {
 
     function handleNameDelete() {
         setNameValue('');
+        setTipVisibility(false);
         changeSearchedMovie({});
         setPopupOpen(false);
     }

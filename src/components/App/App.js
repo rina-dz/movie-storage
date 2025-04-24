@@ -22,13 +22,17 @@ function App() {
   });
   const [loggedIn, changeState] = React.useState(false);
   const [favMovies, addFavMovies] = React.useState([]);
+  const [searchedMoviesInfo, addSearchedMoviesInfo] = React.useState({});
+  const [searchedMovies, addSearchedMovies] = React.useState([]);
   const [currentMovie, changeMovie] = React.useState();
+  const [pageCounter, changePageCounter] = React.useState(1);
+  const [moreMoviesStatus, changeMoreMoviesStatus] = React.useState(false);
 
   if (!localStorage.users) {
     localStorage.setItem('users', JSON.stringify([defaultUser]));
   }
 
-  //localStorage.clear(); 
+  // localStorage.clear(); 
   // очистить localStorage
 
   React.useEffect(() => {
@@ -53,6 +57,7 @@ function App() {
       addFavMovies(movies);
       changeState(true);
     }
+    localStorage.removeItem('searchInfo')
   }, [loggedIn]);
 
   // вынести setCurrentUser итд в отдельную функцию
@@ -88,7 +93,6 @@ function App() {
     }
   }
 
-
   function handleRegister(info) {
     if (localStorage.users) {
       const users = JSON.parse(localStorage.getItem('users'));
@@ -113,7 +117,6 @@ function App() {
     navigate('/', { replace: true });
   }
 
-
   function signOut() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     localStorage.removeItem('isLoggedIn');
@@ -135,21 +138,35 @@ function App() {
     navigate('/auth', { replace: true });
   }
 
-
   function getMovies(info) {
-    if (info.name) {
-      if (info.year) {
-        return newOMDbApi.getMovieByNameAndYear(info)
+    let currentInfo = info;
+    currentInfo.page = pageCounter;
+
+    if (currentInfo.name) {
+      if (currentInfo.year) {
+        return newOMDbApi.getMovieByNameAndYear(currentInfo)
           .then((movies) => {
-            console.log(movies);
+            addSearchedMoviesInfo({
+              totalResults: movies.totalResults,
+              Response: movies.Response
+            });
+            pageCounter > 1 ? addSearchedMovies([...searchedMovies, ...movies.Search]) : addSearchedMovies(movies.Search);
+            movies.totalResults === '10' ? changeMoreMoviesStatus(false) :
+              movies.totalResults > searchedMovies.length ? changeMoreMoviesStatus(true) : changeMoreMoviesStatus(false);
           })
           .catch((err) => {
             console.log(err);
           })
       } else {
-        return newOMDbApi.getMovieByName(info)
+        return newOMDbApi.getMovieByName(currentInfo)
           .then((movies) => {
-            console.log(movies);
+            addSearchedMoviesInfo({
+              totalResults: movies.totalResults,
+              Response: movies.Response
+            });
+            pageCounter > 1 ? addSearchedMovies([...searchedMovies, ...movies.Search]) : addSearchedMovies(movies.Search);
+            movies.totalResults === '10' ? changeMoreMoviesStatus(false) :
+              movies.totalResults > searchedMovies.length ? changeMoreMoviesStatus(true) : changeMoreMoviesStatus(false);
           })
           .catch((err) => {
             console.log(err);
@@ -212,14 +229,28 @@ function App() {
       })
   }
 
+  function getNextPage(info) {
+    changePageCounter(pageCounter + 1);
+    return getMovies(info);
+  }
+
+  // обновляется только при втором нажатии на поиск
+  // та же проблема с кнопкой ещё - открывает новые фильмы, но при первом нажатии нужно тыкнутть дважды 
+  function reloadSearch() {
+    changePageCounter(1);
+    addSearchedMovies([]);
+    addSearchedMoviesInfo({});
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Routes>
           <Route path="/" element={<Main
-            likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie}
-            getMovies={getMovies}
-            navigateToMovie={navigateToMovie} getMovieById={getMovieById} />} />
+            likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie} getNextPage={getNextPage}
+            reloadSearch={reloadSearch}
+            getMovies={getMovies} searchedMovies={searchedMovies} searchedMoviesInfo={searchedMoviesInfo}
+            navigateToMovie={navigateToMovie} getMovieById={getMovieById} moreMoviesStatus={moreMoviesStatus} />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/auth" element={<Auth handleLogin={handleLogin} handleRegister={handleRegister} />} />
           <Route path="/movie" element={<ProtectedRoute element={Movie}
@@ -243,3 +274,38 @@ function App() {
 }
 
 export default App;
+
+
+
+
+// if (info.name) {
+//   if (info.year) {
+//     return newOMDbApi.getMovieByNameAndYear(info)
+//       .then((movies) => {
+//         console.log(movies);
+//         addSearchedMoviesInfo({
+//           totalResults: movies.totalResults,
+//           Response: movies.Response
+//         });
+//         //if (pageCounter > 1) 
+//         pageCounter > 1 ? addSearchedMovies(...searchedMovies, movies.Search) : addSearchedMovies(movies.Search);
+//         //addSearchedMovies(movies.Search)
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       })
+//   } else {
+//     return newOMDbApi.getMovieByName(info)
+//       .then((movies) => {
+//         addSearchedMoviesInfo({
+//           totalResults: movies.totalResults,
+//           Response: movies.Response
+//         });
+//         pageCounter > 1 ? addSearchedMovies(...searchedMovies, movies.Search) : addSearchedMovies(movies.Search);
+//         //addSearchedMovies(movies.Search)
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       })
+//   }
+// }

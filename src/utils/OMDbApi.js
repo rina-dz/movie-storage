@@ -24,13 +24,13 @@ class OMDbApi {
     }
 
     getMovieByName(info) {
-        return this._request(`${this.baseUrl}s=${info.name}`, {
+        return this._request(`${this.baseUrl}s=${info.name}&page=${info.page}`, {
             method: 'GET'
         })
     }
 
     getMovieByNameAndYear(info) {
-        return this._request(`${this.baseUrl}s=${info.name}&y=${info.year}`, {
+        return this._request(`${this.baseUrl}s=${info.name}&y=${info.year}&page=${info.page}`, {
             method: 'GET'
         })
     }
