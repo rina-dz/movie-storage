@@ -32,7 +32,7 @@ function App() {
     localStorage.setItem('users', JSON.stringify([defaultUser]));
   }
 
-  // localStorage.clear(); 
+ //  localStorage.clear(); 
   // очистить localStorage
 
   React.useEffect(() => {
@@ -122,15 +122,11 @@ function App() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUser');
     let users = JSON.parse(localStorage.getItem('users'));
-    console.log(`Изначальный список юзеров - ${users}`);
     const userIndex = users.findIndex((i) => { return i.email === user.email });
-    console.log(`Индекс элемента в массиве - ${userIndex}`);
     if (userIndex >= 0) {
       users.splice(userIndex, 1, user);
-      console.log(`Новый список юзеров после замены - ${users}`);
     } else {
       users.push(user);
-      console.log(`Новый список юзеров без замены - ${users}`);
     }
     localStorage.setItem('users', JSON.stringify(users));
     setCurrentUser({ name: "", email: "", favMovies: [] });
@@ -184,8 +180,7 @@ function App() {
 
   function handleLikeMovie(id) {
     if (loggedIn) {
-      //добавить значок загрузки чтобы нельзя было перейти в favmovies до добавления
-      newOMDbApi.getMovieById(id)
+       return newOMDbApi.getMovieById(id)
         .then((movie) => {
           addFavMovies([...favMovies, movie]);
           let savedMovies = [...currentUser.favMovies, id];
@@ -197,9 +192,6 @@ function App() {
         .catch((err) => {
           console.log(err);
           alert('Произошла ошибка на сервере');
-        })
-        .finally(() => {
-          // убрать значок загрузки
         })
     } else {
       navigate('/auth', { replace: true });

@@ -4,10 +4,12 @@ import rateStar from '../../images/star-icon.svg';
 import heart_clicked from '../../images/heart-icon__clicked.png';
 import heart_default from '../../images/heart-icon__default.png';
 import poster_none from '../../images/poster_none.png';
+import loading_icon from '../../images/loading-icon_color-white.png';
 
 function Slide(props) {
     const { Poster, Title, rate, Year, imdbID } = props.movie;
     const [isLiked, setMovieLike] = React.useState(false);
+    const [isLoading, setLoading] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const posterRef = useRef(null);
     let posterSrc = Poster === "N/A" ? poster_none : Poster;
@@ -19,12 +21,20 @@ function Slide(props) {
     }, []);
 
     function handleLikeMovie() {
-        props.likeMovie(imdbID);
-        setMovieLike(true);
+        setLoading(true);
+        props.likeMovie(imdbID)
+            .then(() => {
+                setMovieLike(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     }
 
     function dislikeMovie() {
+        setLoading(true);
         props.dislikeMovie(imdbID);
+        setLoading(false);
         setMovieLike(false);
     }
 
@@ -48,7 +58,8 @@ function Slide(props) {
             </div>
             <span className='slide__link' onClick={navigateToMovie} />
             <button className={isLiked ? 'slide__button liked-button' : 'slide__button'} onClick={isLiked ? dislikeMovie : handleLikeMovie}>
-                <img className='slide__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />
+                {isLoading ? <img className='slide__loading-icon' src={loading_icon} alt='Загрузка' /> :
+                    <img className='slide__button-icon' alt='Сердечко' src={isLiked ? heart_clicked : heart_default} />}
             </button>
         </aside>
     )

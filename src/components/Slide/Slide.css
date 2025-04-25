@@ -103,8 +103,8 @@
     border: 0;
     margin: auto auto 10px;
     justify-self: end;
-    width: min-content;
-    height: min-content;
+    width: 35px;
+    height: 30px;
     border-radius: 13px;
     display: flex;
     flex-direction: row;
@@ -124,10 +124,29 @@
     cursor: pointer;
 }
 
+.slide__loading-icon {
+    margin: 0;
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+    background-color: transparent;
+    animation: 1s linear 0s normal none infinite running rot;
+}
+
 .slide__button-icon {
     height: 25px;
     width: 25px;
     margin: 2.5px 5px;
+}
+
+@keyframes rot {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 800px) {
