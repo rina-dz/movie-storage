@@ -34,8 +34,7 @@ function App() {
   if (!localStorage.users) {
     localStorage.setItem('users', JSON.stringify([defaultUser]));
   }
-
-  //  localStorage.clear(); 
+  // localStorage.clear(); 
   // очистить localStorage
 
   React.useEffect(() => {
@@ -62,8 +61,6 @@ function App() {
     }
     localStorage.removeItem('searchInfo')
   }, [loggedIn]);
-
-  // вынести setCurrentUser итд в отдельную функцию
 
   function handleLogin(info) {
     console.log(info)

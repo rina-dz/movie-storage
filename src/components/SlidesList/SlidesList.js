@@ -7,12 +7,20 @@ function SlidesList(props) {
 
     function getNextPage(event) {
         event.preventDefault();
-        const info = JSON.parse(localStorage.getItem('searchInfo'));
+        // const info = JSON.parse(localStorage.getItem('searchInfo'));
         setLoading(true);
-        props.getNextPage(info)
+        props.getNextPage()
         .finally(() => {
             setLoading(false);
         })
+
+        // event.preventDefault();
+        // const info = JSON.parse(localStorage.getItem('searchInfo'));
+        // setLoading(true);
+        // props.getNextPage(info)
+        // .finally(() => {
+        //     setLoading(false);
+        // })
     }
 
     return (

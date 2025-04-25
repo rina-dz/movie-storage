@@ -10,13 +10,11 @@ import arrowIcon from '../../images/arrow-left.svg';
 import { topMovies } from '../../utils/movies';
 
 function Main(props) {
-    const { totalResults, Response } = props.searchedMoviesInfo;
+    const [numberOfVisibleMovies, changeNumberOfVisibleMovies] = React.useState(10);
     let step = 574;
     const scrollRef = useRef(null);
-    // const [movies, addMoreMovies] = React.useState(props.searchedMovies);
-    // const [visibleMovies, addMoreVisibleMovies] = React.useState([]);
+    let moviesStep = getMoviesStep();
 
-    // бавить блокировку кнопок в крайних положениях
     React.useEffect(() => {
         checkAndResize();
         window.addEventListener('resize', checkAndResize);
@@ -25,22 +23,18 @@ function Main(props) {
         }
     }, []);
 
+    function getMoviesStep() {
+        if (window.innerWidth >= 1527) { return 10 }
+        if (window.innerWidth < 1527 && window.innerWidth >= 1218) { return 8 }
+        if (window.innerWidth <= 1217 && window.innerWidth > 909) { return 9 }
+        if (window.innerWidth < 910) { return 10 }
+    }
+
     function checkAndResize() {
-        if (window.innerWidth >= 1527) {
-            //console.log(10);
-            //addMoreVisibleMovies(movies.slice(0, 10));
-        }
-        if (window.innerWidth < 1527 && window.innerWidth >= 1218) {
-            //console.log(8);
-            //addMoreVisibleMovies(movies.slice(0, 8));
-        }
-        if (window.innerWidth <= 1217 && window.innerWidth > 909) {
-            //console.log(6);
-            //addMoreVisibleMovies(movies.slice(0, 6));
-        }
-        if (window.innerWidth < 910) {
-            //console.log(10);
-        }
+        if (window.innerWidth >= 1527) { changeNumberOfVisibleMovies(10) }
+        if (window.innerWidth < 1527 && window.innerWidth >= 1218) { changeNumberOfVisibleMovies(8) }
+        if (window.innerWidth <= 1217 && window.innerWidth > 909) { changeNumberOfVisibleMovies(9) }
+        if (window.innerWidth < 910) { changeNumberOfVisibleMovies(10) }
     };
 
     function leftScroll() {
@@ -57,8 +51,16 @@ function Main(props) {
         })
     }
 
+    function getNextPage() {
+        // ошибка и выводится больше чем надо
+        // console.log(moviesStep);
+        const info = JSON.parse(localStorage.getItem('searchInfo'));
+        return props.getNextPage(info)
+            .finally(() => {
+                changeNumberOfVisibleMovies(numberOfVisibleMovies + moviesStep);
+            })
+    }
 
-    // Приходит по 10 фильмов, далее нужно отправлять такой же запрос с другой страницей
     // добавить каунтер с изначальным знач 1 и увеличивать его при нажатии ещё до момента пока не поменяется
     // инфо из SearchTab
 
@@ -84,9 +86,9 @@ function Main(props) {
                     </div>
                 </div>
                 <SearchTab getMovies={props.getMovies} reloadSearch={props.reloadSearch} />
-                {Response === 'True' ? (
-                    <SlidesList anyMoreMovies={props.moreMoviesStatus} addMoreMovies={props.addMoreMovies} getNextPage={props.getNextPage}>
-                        {props.searchedMovies.map((el) => (
+                {props.searchedMoviesInfo.Response === 'True' ? (
+                    <SlidesList anyMoreMovies={props.moreMoviesStatus} getNextPage={getNextPage}>
+                        {props.searchedMovies.slice(0, numberOfVisibleMovies).map((el) => (
                             <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie}
                                 dislikeMovie={props.dislikeMovie} navigateToMovie={props.navigateToMovie} />
                         ))}

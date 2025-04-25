@@ -10,6 +10,7 @@ function Slide(props) {
     const { Poster, Title, rate, Year, imdbID } = props.movie;
     const [isLiked, setMovieLike] = React.useState(false);
     const [isLoading, setLoading] = React.useState(false);
+    const isLogged = localStorage.isLoggedIn ? true : false;
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const posterRef = useRef(null);
     let posterSrc = Poster === "N/A" ? poster_none : Poster;
@@ -22,13 +23,17 @@ function Slide(props) {
 
     function handleLikeMovie() {
         setLoading(true);
-        props.likeMovie(imdbID)
-            .then(() => {
-                setMovieLike(true);
-            })
-            .finally(() => {
-                setLoading(false);
-            })
+        if (isLogged) {
+            props.likeMovie(imdbID)
+                .then(() => {
+                    setMovieLike(true);
+                })
+                .finally(() => {
+                    setLoading(false);
+                })
+        } else {
+            props.likeMovie(imdbID)
+        }
     }
 
     function dislikeMovie() {
