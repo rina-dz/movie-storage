@@ -12,6 +12,11 @@ function Auth(props) {
         setLogging(!isLogging);
     }
 
+    function autoLogin() {
+        setLogging(true);
+        props.handleLogin({ email: 'kotik@mail.meow', password: 'meowmeow' });
+    }
+
     return (
         <section className='auth'>
             <div className='auth__form-container'>
@@ -20,9 +25,14 @@ function Auth(props) {
                 </Link>
                 <h2 className='auth__title'>{isLogging ? 'Рады видеть!' : 'Добро пожаловать!'}</h2>
                 {isLogging ?
-                    <Login changeAuth={changeAuth} handleSubmit={props.handleLogin} /> :
+                    <Login changeAuth={changeAuth} handleSubmit={props.handleLogin} autoLogin={autoLogin} /> :
                     <Register changeAuth={changeAuth} handleSubmit={props.handleRegister} />}
             </div>
+            <aside className='auth__tip'>
+                <p className='auth__tip-text'>Этот сайт является частью портфолио и у него отсутствует апи для авторизации! Вы можете создавать
+                    и изменять собственные аккаунты, но сохранены они будут локально.</p>
+                <span className='auth__tip-span' onClick={autoLogin}>Демонстрационный аккаунт</span>
+            </aside>
         </section>
     )
 }

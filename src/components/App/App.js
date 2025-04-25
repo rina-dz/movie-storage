@@ -66,6 +66,7 @@ function App() {
   // вынести setCurrentUser итд в отдельную функцию
 
   function handleLogin(info) {
+    console.log(info)
     if (localStorage.users) {
       const users = JSON.parse(localStorage.users);
       const user = users.find((i) => { return i.email === info.email });

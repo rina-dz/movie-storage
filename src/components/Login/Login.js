@@ -19,8 +19,7 @@ function Login(props) {
     return (
         <form className='login__form' onSubmit={handleLogin}>
             <input className='login__input' placeholder="E-mail" type='email' name="email" value={values?.email}
-                onChange={handleChange} minLength={2} required
-                pattern='^[a-z0-9A-Z._%+-]+@[a-z0-9A-Z.-]+\.[a-zA-Z]{2,}$' />
+                onChange={handleChange} minLength={2} required pattern='^[a-z0-9A-Z._%+-]+@[a-z0-9A-Z.-]+\.[a-zA-Z]{2,}$' />
             <span className="login__input-error">{errors?.email}</span>
             <div className='login__password-container'>
                 <input className='login__input' name='password' type={isVisible ? 'text' : 'password'} placeholder="Пароль"
