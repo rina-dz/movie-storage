@@ -36,6 +36,9 @@
     margin: 0 0 10px 0;
     font-size: 19px;
     opacity: 0.6;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .slide__title {
@@ -62,7 +65,7 @@
 }
 
 .slide__year-span {
-    margin-left: 15px;
+    margin: 0 auto;
     font-size: 22px;
 }
 

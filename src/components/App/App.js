@@ -9,6 +9,7 @@ import Profile from '../Profile/Profile.js';
 import FavMovies from '../FavMovies/FavMovies.js';
 import Movie from '../Movie/Movie';
 import Animatic from '../Animatic/Animatic.js';
+import InfoPopup from '../InfoPopup/InfoPopup.js';
 import defaultUser from '../../utils/defaultUser.js';
 import { newOMDbApi } from '../../utils/OMDbApi.js';
 
@@ -27,12 +28,14 @@ function App() {
   const [currentMovie, changeMovie] = React.useState();
   const [pageCounter, changePageCounter] = React.useState(1);
   const [moreMoviesStatus, changeMoreMoviesStatus] = React.useState(false);
+  const [errorMessage, changeErrorMessage] = React.useState('');
+  const [isInfoPopupOpen, setInfoPopupOpen] = React.useState(false);
 
   if (!localStorage.users) {
     localStorage.setItem('users', JSON.stringify([defaultUser]));
   }
 
- //  localStorage.clear(); 
+  //  localStorage.clear(); 
   // очистить localStorage
 
   React.useEffect(() => {
@@ -67,7 +70,12 @@ function App() {
       const users = JSON.parse(localStorage.users);
       const user = users.find((i) => { return i.email === info.email });
       if (!user) {
-        return console.log('Пользователь не найден!');
+        changeErrorMessage('Пользователь не найден!');
+        setInfoPopupOpen(true);
+        setTimeout(() => {
+          setInfoPopupOpen(false);
+        }, 3500);
+        return
       }
       if (info.password === user.password) {
         setCurrentUser({
@@ -86,10 +94,19 @@ function App() {
         }));
         navigate('/', { replace: true });
       } else {
-        console.log('Неверный пароль!');
+        changeErrorMessage('Неверный пароль!');
+        setInfoPopupOpen(true);
+        setTimeout(() => {
+          setInfoPopupOpen(false);
+        }, 3500);
+        return
       }
     } else {
-      return console.log('Пользователь не найден!');
+      changeErrorMessage('Пользователь не найден!');
+      setInfoPopupOpen(true);
+      setTimeout(() => {
+        setInfoPopupOpen(false);
+      }, 3500);
     }
   }
 
@@ -97,7 +114,12 @@ function App() {
     if (localStorage.users) {
       const users = JSON.parse(localStorage.getItem('users'));
       if (users.some((i) => { return i.email === info.email })) {
-        return console.log('Почта уже занята!');
+        changeErrorMessage('Почта уже занята!');
+        setInfoPopupOpen(true);
+        setTimeout(() => {
+          setInfoPopupOpen(false);
+        }, 3500);
+        return
       }
     }
     setCurrentUser({
@@ -180,7 +202,7 @@ function App() {
 
   function handleLikeMovie(id) {
     if (loggedIn) {
-       return newOMDbApi.getMovieById(id)
+      return newOMDbApi.getMovieById(id)
         .then((movie) => {
           addFavMovies([...favMovies, movie]);
           let savedMovies = [...currentUser.favMovies, id];
@@ -191,7 +213,6 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          alert('Произошла ошибка на сервере');
         })
     } else {
       navigate('/auth', { replace: true });
@@ -260,6 +281,7 @@ function App() {
           />} />
         </Routes>
         <Animatic />
+        <InfoPopup errorMessage={errorMessage} isInfoPopupOpen={isInfoPopupOpen} />
       </div>
     </CurrentUserContext.Provider>
   );
