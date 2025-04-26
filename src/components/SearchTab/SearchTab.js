@@ -31,23 +31,25 @@ function SearchTab(props) {
         if (localStorage.searchInfo) {
             let ls = JSON.parse(localStorage.searchInfo);
             if (ls.name !== info.name) {
-                console.log('Разные');
+                props.reloadVisibleMovies();
                 props.reloadSearch();
             } else {
                 if (ls.year !== info.year) {
-                    console.log('Разные');
+                    props.reloadVisibleMovies();
                     props.reloadSearch();
                 }
             }
+            props.getMovies(info, 1)
+                .finally(() => {
+                    setLoading(false);
+                })
         }
         localStorage.setItem('searchInfo', JSON.stringify(info));
-        props.getMovies(info)
+        props.getMovies(info, 1)
             .finally(() => {
                 setLoading(false);
             })
     }
-
-    // добавить обработку ответа если фильмы не найдены и нажатие на ещё с запросом к newOMDbApi, но уже со следующей страницы
 
     return (
         <section className="search">
@@ -57,7 +59,8 @@ function SearchTab(props) {
                         <p className='search__form-tip'>Введите по крайней мере 3 символа</p> : ''
                     }
                     <img className="search__line-icon" src={search_icon} alt="Иконка поиска" />
-                    <input className="search__line-input" minLength={3} placeholder="Название фильма" onChange={handleNameChange} value={nameValue || ""} />
+                    <input className="search__line-input" minLength={3} placeholder="Название фильма"
+                        onChange={handleNameChange} value={nameValue || ""} />
                     {nameValue ? <button className='search__delete-button' onClick={handleNameDelete} /> : ''}
                     <input className='search__year-input' placeholder='Год' type='number'
                         onChange={handleYearChange} value={yearValue || ''} />

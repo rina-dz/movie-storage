@@ -59,11 +59,10 @@ function App() {
       addFavMovies(movies);
       changeState(true);
     }
-    localStorage.removeItem('searchInfo')
+    changePageCounter(1);
   }, [loggedIn]);
 
   function handleLogin(info) {
-    console.log(info)
     if (localStorage.users) {
       const users = JSON.parse(localStorage.users);
       const user = users.find((i) => { return i.email === info.email });
@@ -154,10 +153,9 @@ function App() {
     navigate('/auth', { replace: true });
   }
 
-  function getMovies(info) {
+  function getMovies(info, pageNumber) {
     let currentInfo = info;
-    currentInfo.page = pageCounter;
-
+    currentInfo.page = pageNumber;
     if (currentInfo.name) {
       if (currentInfo.year) {
         return newOMDbApi.getMovieByNameAndYear(currentInfo)
@@ -166,7 +164,7 @@ function App() {
               totalResults: movies.totalResults,
               Response: movies.Response
             });
-            pageCounter > 1 ? addSearchedMovies([...searchedMovies, ...movies.Search]) : addSearchedMovies(movies.Search);
+            pageNumber > 1 ? addSearchedMovies([...searchedMovies, ...movies.Search]) : addSearchedMovies(movies.Search);
             movies.totalResults === '10' ? changeMoreMoviesStatus(false) :
               movies.totalResults > searchedMovies.length ? changeMoreMoviesStatus(true) : changeMoreMoviesStatus(false);
           })
@@ -180,7 +178,7 @@ function App() {
               totalResults: movies.totalResults,
               Response: movies.Response
             });
-            pageCounter > 1 ? addSearchedMovies([...searchedMovies, ...movies.Search]) : addSearchedMovies(movies.Search);
+            pageNumber > 1 ? addSearchedMovies([...searchedMovies, ...movies.Search]) : addSearchedMovies(movies.Search);
             movies.totalResults === '10' ? changeMoreMoviesStatus(false) :
               movies.totalResults > searchedMovies.length ? changeMoreMoviesStatus(true) : changeMoreMoviesStatus(false);
           })
@@ -242,11 +240,9 @@ function App() {
 
   function getNextPage(info) {
     changePageCounter(pageCounter + 1);
-    return getMovies(info);
+    return getMovies(info, pageCounter + 1);
   }
 
-  // обновляется только при втором нажатии на поиск
-  // та же проблема с кнопкой ещё - открывает новые фильмы, но при первом нажатии нужно тыкнутть дважды 
   function reloadSearch() {
     changePageCounter(1);
     addSearchedMovies([]);
@@ -286,38 +282,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-// if (info.name) {
-//   if (info.year) {
-//     return newOMDbApi.getMovieByNameAndYear(info)
-//       .then((movies) => {
-//         console.log(movies);
-//         addSearchedMoviesInfo({
-//           totalResults: movies.totalResults,
-//           Response: movies.Response
-//         });
-//         //if (pageCounter > 1) 
-//         pageCounter > 1 ? addSearchedMovies(...searchedMovies, movies.Search) : addSearchedMovies(movies.Search);
-//         //addSearchedMovies(movies.Search)
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       })
-//   } else {
-//     return newOMDbApi.getMovieByName(info)
-//       .then((movies) => {
-//         addSearchedMoviesInfo({
-//           totalResults: movies.totalResults,
-//           Response: movies.Response
-//         });
-//         pageCounter > 1 ? addSearchedMovies(...searchedMovies, movies.Search) : addSearchedMovies(movies.Search);
-//         //addSearchedMovies(movies.Search)
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       })
-//   }
-// }

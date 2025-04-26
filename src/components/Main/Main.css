@@ -99,10 +99,28 @@
     transform: rotate(180deg);
 }
 
+.main__default-text {
+    text-align: center;
+    width: 85%;
+    height: 222px;
+    margin: 55px auto;
+    color: rgb(59, 59, 59);
+    font-size: 40px;
+    font-family: Geoform, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
 .main__result-text {
+    display: none;
     width: min-content;
     white-space: nowrap;
-    margin: 30px auto;
+    height: 222px;
+    margin: 55px auto;
     color: rgb(59, 59, 59);
     font-size: 35px;
     font-family: Geoform, sans-serif;
@@ -110,6 +128,12 @@
     font-weight: 300;
 }
 
+.visibly {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
 
 @media screen and (max-width: 600px) {
 
@@ -129,6 +153,10 @@
     .main__right-button {
         left: auto;
         right: 12px;
+    }
+
+    .main__default-text {
+        font-size: 29px;
     }
 
     .main__result-text {

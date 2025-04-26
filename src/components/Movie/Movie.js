@@ -18,6 +18,7 @@ function Movie(props) {
         if (user) {
             user.favMovies.includes(movie.imdbID) ? setMovieLike(true) : setMovieLike(false);
         }
+        window.scrollTo(0, 0);
     }, []);
 
     function handleLikeMovie() {
@@ -34,8 +35,8 @@ function Movie(props) {
         <>
             <Header getMovieById={props.getMovieById} navigateToMovie={props.navigateToMovie} />
             <section className='movie'>
-                <img className='movie__poster' alt='Постер' src={posterSrc} 
-                onError={() => { posterRef.current.src = poster_none }} ref={posterRef} />
+                <img className='movie__poster' alt='Постер' src={posterSrc}
+                    onError={() => { posterRef.current.src = poster_none }} ref={posterRef} />
                 <dl className='movie__info-container'>
                     <div className='movie__title-container'>
                         <h3 className='movie__title'>{movie.Title}</h3>

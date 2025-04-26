@@ -52,8 +52,6 @@ function Main(props) {
     }
 
     function getNextPage() {
-        // ошибка и выводится больше чем надо
-        // console.log(moviesStep);
         const info = JSON.parse(localStorage.getItem('searchInfo'));
         return props.getNextPage(info)
             .finally(() => {
@@ -61,8 +59,9 @@ function Main(props) {
             })
     }
 
-    // добавить каунтер с изначальным знач 1 и увеличивать его при нажатии ещё до момента пока не поменяется
-    // инфо из SearchTab
+    function reloadVisibleMovies() {
+        changeNumberOfVisibleMovies(moviesStep);
+    }
 
     return (
         <>
@@ -85,17 +84,18 @@ function Main(props) {
                         </button>
                     </div>
                 </div>
-                <SearchTab getMovies={props.getMovies} reloadSearch={props.reloadSearch} />
+                <SearchTab getMovies={props.getMovies} reloadSearch={props.reloadSearch} reloadVisibleMovies={reloadVisibleMovies} />
                 {props.searchedMoviesInfo.Response === 'True' ? (
-                    <SlidesList anyMoreMovies={props.moreMoviesStatus} getNextPage={getNextPage}>
+                    <SlidesList anyMoreMovies={props.moreMoviesStatus} getNextPage={getNextPage} >
                         {props.searchedMovies.slice(0, numberOfVisibleMovies).map((el) => (
                             <Slide movie={el} isTopSlide={false} key={el.imdbID} likeMovie={props.likeMovie}
                                 dislikeMovie={props.dislikeMovie} navigateToMovie={props.navigateToMovie} />
                         ))}
                     </SlidesList>
                 ) : (
-                    <p className='main__result-text'>Ничего не найдено</p>
+                    <p className={`main__result-text ${props.searchedMoviesInfo.Response === 'False' ? 'visibly' : ''}`}>Ничего не найдено</p>
                 )}
+                <p className={`main__default-text ${props.searchedMoviesInfo.Response ? '' : 'visibly'}`}>Начните искать фильмы прямо сейчас</p>
             </section>
             <Footer />
         </>
