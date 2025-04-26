@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    margin: 65px 0 70px;
+    margin: 65px 0 0;
 }
 
 .auth__icon-container {
@@ -59,7 +59,7 @@
 
 .auth__tip {
     position: absolute;
-    bottom: 15px;
+    top: 15px;
     right: 15px;
     width: 270px;
     height: min-content;
@@ -96,6 +96,17 @@
     opacity: 0.8;
 }
 
+@media screen and (max-width: 1230px) {
+    .auth__form-container {
+        margin-top: 130px;
+    }
+
+    .auth__tip {
+        top: 5px;
+        bottom: auto;
+    }
+}
+
 
 @media screen and (max-width: 700px) {
     .auth {
@@ -103,7 +114,7 @@
     }
 
     .auth__form-container {
-        margin: 100px 0 160px;
+        margin: 140px 0 0;
         width: 420px;
     }
 }

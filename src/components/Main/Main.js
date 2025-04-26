@@ -48,7 +48,6 @@ function Main(props) {
             left: step,
             behavior: 'smooth'
         })
-        console.log(props.topMovies.length);
     }
 
     function getNextPage() {
