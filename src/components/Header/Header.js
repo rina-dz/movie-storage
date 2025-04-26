@@ -18,12 +18,9 @@ function Header(props) {
     const containerClassName = isLoggedIn ? "header__container" : "header__container unlogged-container";
 
     function handleNameChange(e) {
-        // let value = `tt${e.target.value}`;
-        // console.log(value);
-        //мб потом дописать инпут олько для цифр, а tt уже встроен
         setNameValue(e.target.value);
         setTipVisibility(true);
-        if (e.target.value.length === 9) {
+        if (e.target.value.length === 8) {
             setTipVisibility(false);
             setLoading(true);
             let refusal = {
@@ -65,8 +62,6 @@ function Header(props) {
         setPopupOpen(false);
     }
 
-    // Написать регулярное выражение для проверки imdbID (начинается с tt + 7 цифр)
-
     return (
         <header className="header">
             <div className='header__main-container'>
@@ -79,7 +74,7 @@ function Header(props) {
                     <SearchPopup isOpen={isPopupOpen} searchedMovie={searchedMovie} navigateToMovie={props.navigateToMovie} />
                     <img className="header__search-icon" src={search_icon} alt="Иконка поиска" />
                     <input className='header__search-input' placeholder="Введите imdbID"
-                        onChange={handleNameChange} value={nameValue || ""} maxLength={9} />
+                        onChange={handleNameChange} value={nameValue || ""} maxLength={10} />
                     {nameValue ?
                         isLoading ? <img className='header__loading-icon' src={loading_icon} alt='Загрузка' /> :
                             <button className='header__delete-button' onClick={handleNameDelete} />

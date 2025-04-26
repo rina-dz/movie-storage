@@ -12,6 +12,7 @@ import Animatic from '../Animatic/Animatic.js';
 import InfoPopup from '../InfoPopup/InfoPopup.js';
 import defaultUser from '../../utils/defaultUser.js';
 import { newOMDbApi } from '../../utils/OMDbApi.js';
+import { topIds } from '../../utils/movies';
 
 function App() {
   const navigate = useNavigate();
@@ -30,12 +31,24 @@ function App() {
   const [moreMoviesStatus, changeMoreMoviesStatus] = React.useState(false);
   const [errorMessage, changeErrorMessage] = React.useState('');
   const [isInfoPopupOpen, setInfoPopupOpen] = React.useState(false);
+  const [topMovies, addTopMovies] = React.useState([]);
 
   if (!localStorage.users) {
     localStorage.setItem('users', JSON.stringify([defaultUser]));
   }
   // localStorage.clear(); 
   // очистить localStorage
+
+  React.useEffect(() => {
+    let top = [];
+    topIds.forEach((id) => {
+      getMovieById(id)
+        .then((movie) => {
+          top.push(movie);
+        })
+    })
+    addTopMovies(top);
+  }, [])
 
   React.useEffect(() => {
     if (localStorage.isLoggedIn) {
@@ -255,7 +268,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main
             likeMovie={handleLikeMovie} dislikeMovie={handleDislikeMovie} getNextPage={getNextPage}
-            reloadSearch={reloadSearch}
+            reloadSearch={reloadSearch} topMovies={topMovies}
             getMovies={getMovies} searchedMovies={searchedMovies} searchedMoviesInfo={searchedMoviesInfo}
             navigateToMovie={navigateToMovie} getMovieById={getMovieById} moreMoviesStatus={moreMoviesStatus} />} />
           <Route path="*" element={<NotFound />} />

@@ -7,13 +7,16 @@ import poster_none from '../../images/poster_none.png';
 import loading_icon from '../../images/loading-icon_color-white.png';
 
 function Slide(props) {
-    const { Poster, Title, rate, Year, imdbID } = props.movie;
+    const { Poster, Title, Ratings, Year, imdbID } = props.movie;
     const [isLiked, setMovieLike] = React.useState(false);
     const [isLoading, setLoading] = React.useState(false);
     const isLogged = localStorage.isLoggedIn ? true : false;
     const user = JSON.parse(localStorage.getItem('currentUser'));
     const posterRef = useRef(null);
     let posterSrc = Poster === "N/A" ? poster_none : Poster;
+    const rate = Ratings && Ratings.length > 0 ?
+        Ratings.find((el) => { return el.Source === "Internet Movie Database" || "Rotten Tomatoes" }) :
+        "N/A";
 
     React.useEffect(() => {
         if (user) {
@@ -52,10 +55,11 @@ function Slide(props) {
             <img className='slide__poster' alt='Постер фильма' src={posterSrc}
                 onError={() => { posterRef.current.src = poster_none }} ref={posterRef} />
             <div className='slide__text-container'>
-                {props.isTopSlide ?
-                    <p className='slide__info'>IMD рейтинг: <span className='slide__rate-span'>
-                        <img src={rateStar} className='slide__star-icon' alt='Звёздочка' />
-                        {rate}</span></p>
+                {props.isTopSlide && rate !== "N/A" ?
+                    <p className='slide__info'>{rate.Source === "Rotten Tomatoes" ? 'RT рейтинг:' : 'IMD рейтинг:'}
+                        <span className='slide__rate-span'>
+                            <img src={rateStar} className='slide__star-icon' alt='Звёздочка' />
+                            {rate.Value}</span></p>
                     :
                     <p className='slide__info'>Год выхода: <span className='slide__year-span'>{Year}</span></p>
                 }

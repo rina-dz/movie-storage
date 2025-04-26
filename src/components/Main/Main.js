@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import './Main.css';
-//import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Slide from '../Slide/Slide';
 import SearchTab from '../SearchTab/SearchTab';
@@ -49,6 +48,7 @@ function Main(props) {
             left: step,
             behavior: 'smooth'
         })
+        console.log(props.topMovies.length);
     }
 
     function getNextPage() {
